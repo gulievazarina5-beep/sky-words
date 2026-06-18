@@ -1,46 +1,24 @@
 import Card from "../Card/Card";
 
-export default function Column({ title }) {
+// Принимаем пропсы title (название колонки) и cards (массив отфильтрованных карточек для этой колонки)
+export default function Column({ title, cards }) {
   return (
     <div className="main__column column">
       <div className="column__title">
         <p>{title}</p>
       </div>
       <div className="cards">
-        {/* Колонка: Без статуса */}
-        {title === "Без статуса" && (
-          <>
-            <Card title="Название задачи" theme="Web Design" color="_orange" />
-            <Card title="Название задачи" theme="Research" color="_green" />
-            <Card title="Название задачи" theme="Web Design" color="_orange" />
-            <Card title="Название задачи" theme="Copywriting" color="_purple" />
-            <Card title="Название задачи" theme="Research" color="_green" />
-          </>
-        )}
+        
+        {/* Динамический рендеринг: перебираем массив карточек через метод .map() */}
+        {cards.map((card) => (
+          <Card 
+            key={card.id}          // Уникальный ключ для React
+            title={card.title}    // Передаем реальное название задачи
+            theme={card.theme}    // Передаем реальную тему задачи
+            date={card.date}      // Передаем дату выполнения
+          />
+        ))}
 
-        {/* Колонка: Нужно сделать */}
-        {title === "Нужно сделать" && (
-          <Card title="Название задачи" theme="Research" color="_green" />
-        )}
-
-        {/* Колонка: В работе (ИСПРАВЛЕНО: Теперь 3 карточки) */}
-        {title === "В работе" && (
-          <>
-            <Card title="Название задачи" theme="Research" color="_green" />
-            <Card title="Название задачи" theme="Copywriting" color="_purple" />
-            <Card title="Название задачи" theme="Web Design" color="_orange" />
-          </>
-        )}
-
-        {/* Колонка: Тестирование */}
-        {title === "Тестирование" && (
-          <Card title="Название задачи" theme="Research" color="_green" />
-        )}
-
-                {/* Колонка: Готово */}
-        {title === "Готово" && (
-          <Card title="Название задачи" theme="Research" color="_green" isDone={true} />
-        )}
       </div>
     </div>
   );

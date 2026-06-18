@@ -1,4 +1,13 @@
+import { useState } from "react";
+
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = (event) => {
+    event.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -17,12 +26,21 @@ export default function Header() {
             <button className="header__btn-main-new _hover01" id="btnMainNew">
               <a href="#popNewCard">Создать новую задачу</a>
             </button>
-            <a href="#user-set-target" className="header__user _hover02">
+            
+            {/* Клик по имени */}
+            <a href="#" className="header__user _hover02" onClick={toggleMenu}>
               Ivan Ivanov
             </a>
+
+            {/* Жесткое управление стилями из React, которое CSS не сможет перебить */}
             <div
               className="header__pop-user-set pop-user-set"
-              id="user-set-target"
+              style={{ 
+                display: isOpen ? "block" : "none",
+                opacity: isOpen ? 1 : 0,
+                visibility: isOpen ? "visible" : "hidden",
+                pointerEvents: isOpen ? "auto" : "none"
+              }}
             >
               <p className="pop-user-set__name">Ivan Ivanov</p>
               <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
@@ -34,6 +52,7 @@ export default function Header() {
                 <a href="#popExit">Выйти</a>
               </button>
             </div>
+
           </nav>
         </div>
       </div>

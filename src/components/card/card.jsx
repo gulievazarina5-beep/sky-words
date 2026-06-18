@@ -1,16 +1,20 @@
-export default function Card({ title, theme, color, isDone }) {
-  // Встраиваем стили зачеркивания и цвета текста напрямую
-  const textStyle = isDone 
-    ? { textDecoration: 'line-through', color: '#94A6BE' } 
-    : { textDecoration: 'none', color: '#000000' };
+export default function Card({ title, theme, date }) {
+  
+  // Автоматически определяем класс цвета в зависимости от темы задачи
+  let colorClass = "_gray"; // цвет по умолчанию
+  if (theme === "Web Design") colorClass = "_orange";
+  if (theme === "Research") colorClass = "_green";
+  if (theme === "Copywriting") colorClass = "_purple";
+  if (theme === "Testing") colorClass = "_orange";
 
   return (
-    /* Добавляем внешний отступ в 14px прямо в инлайн-стиль тега */
+    /* Внешний отступ в 14px прямо в инлайн-стиль тега */
     <div className="cards__item" style={{ marginBottom: '14px', display: 'block' }}>
       <div className="cards__card card" style={{ height: 'auto', minHeight: '130px' }}>
         <div className="card__group">
-          <div className={`card__theme ${color}`}>
-            <p className={color}>{theme}</p>
+          {/* Динамически подставляем определенный класс цвета */}
+          <div className={`card__theme ${colorClass}`}>
+            <p className={colorClass}>{theme}</p>
           </div>
           <a href="#popBrowse" target="_self">
             <div className="card__btn">
@@ -21,9 +25,9 @@ export default function Card({ title, theme, color, isDone }) {
           </a>
         </div>
         <div className="card__content">
-          <a href="" target="_blank" rel="noreferrer">
-            <h3 className="card__title" style={textStyle}>
-              {title}
+          <a href="#" rel="noreferrer">
+            <h3 className="card__title" style={{ textDecoration: 'none', color: '#000000' }}>
+              {title} {/* Выводим реальное название задачи */}
             </h3>
           </a>
           <div className="card__date">
@@ -38,7 +42,7 @@ export default function Card({ title, theme, color, isDone }) {
                 </clipPath>
               </defs>
             </svg>
-            <p>30.10.23</p>
+            <p>{date}</p> {/* Выводим реальную дату задачи */}
           </div>
         </div>
       </div>
