@@ -1,23 +1,32 @@
+import * as S from './popuser.styled';
+
 export default function PopUser() {
   return (
-    <div className="pop-exit" id="popExit">
-      <div className="pop-exit__container">
-        <div className="pop-exit__block">
-          <div className="pop-exit__ttl">
+    <S.PopExit id="popExit">
+      <S.PopExitContainer>
+        <S.PopExitBlock>
+          
+          <S.PopExitTitle>
             <h2>Выйти из аккаунта?</h2>
-          </div>
-          <form className="pop-exit__form" id="formExit" action="#">
-            <div className="pop-exit__form-group">
-              <button className="pop-exit__exit-yes _hover01" id="exitYes">
+          </S.PopExitTitle>
+          
+          <S.PopExitForm id="formExit" action="#">
+            <S.PopExitFormGroup>
+              
+              {/* Чистые ссылки внутри наших стилизованных кнопок */}
+              <S.BtnYes id="exitYes">
                 <a href="#">Да, выйти</a>
-              </button>
-              <button className="pop-exit__exit-no _hover03" id="exitNo">
+              </S.BtnYes>
+              
+              <S.BtnNo id="exitNo">
                 <a href="#">Нет, остаться</a>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+              </S.BtnNo>
+              
+            </S.PopExitFormGroup>
+          </S.PopExitForm>
+          
+        </S.PopExitBlock>
+      </S.PopExitContainer>
+    </S.PopExit>
   );
 }

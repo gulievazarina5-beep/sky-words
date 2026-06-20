@@ -1,32 +1,35 @@
-import Column from "../Column/Column";
+import * as S from './main.styled';
+import Column from '../column/column'; 
 
-// Массив со всеми статусами (колонками)
-const statusList = [
-  "Без статуса",
-  "Нужно сделать",
-  "В работе",
-  "Тестирование",
-  "Готово"
-];
-
-// Принимаем пропс cards, который мы передали из App.jsx
 export default function Main({ cards }) {
+  // Список всех пяти колонок на доске
+  const statusList = [
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово"
+  ];
+
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
-            {/* Рендерим колонки динамически через map, чтобы не дублировать код */}
-            {statusList.map((status) => (
+    <S.MainContent>
+      <S.MainContainer>
+        <S.MainBlock>
+          
+          {/* Фильтруем и выводим каждую колонку отдельно */}
+          {statusList.map((status) => {
+            const filteredCards = cards.filter((card) => card.status === status);
+            return (
               <Column 
                 key={status} 
                 title={status} 
-                cards={cards.filter((card) => card.status === status)} 
+                cards={filteredCards} 
               />
-            ))}
-          </div>
-        </div>
-      </div>
-    </main>
+            );
+          })}
+
+        </S.MainBlock>
+      </S.MainContainer>
+    </S.MainContent>
   );
 }

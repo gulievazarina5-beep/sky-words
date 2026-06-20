@@ -1,25 +1,23 @@
-import Card from "../Card/Card";
+import * as S from './column.styled';
+import Card from '../card/card'; // Путь к карточке с маленькой буквы
 
-// Принимаем пропсы title (название колонки) и cards (массив отфильтрованных карточек для этой колонки)
 export default function Column({ title, cards }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <S.MainColumn>
+      <S.ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
-        
-        {/* Динамический рендеринг: перебираем массив карточек через метод .map() */}
+      </S.ColumnTitle>
+      
+      <S.CardsContainer>
         {cards.map((card) => (
           <Card 
-            key={card.id}          // Уникальный ключ для React
-            title={card.title}    // Передаем реальное название задачи
-            theme={card.theme}    // Передаем реальную тему задачи
-            date={card.date}      // Передаем дату выполнения
+            key={card.id}
+            title={card.title}
+            theme={card.theme}
+            date={card.date}
           />
         ))}
-
-      </div>
-    </div>
+      </S.CardsContainer>
+    </S.MainColumn>
   );
 }
