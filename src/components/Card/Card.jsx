@@ -1,4 +1,4 @@
-import * as S from './card.styled'; // Импорт с маленькой буквы
+import * as S from './Card.styled'; // Импорт с маленькой буквы
 
 export default function Card({ title, theme, date }) {
   return (

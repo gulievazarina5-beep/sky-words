@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 // 1. Затемняющий фон на весь экран (Overlay)
 export const PopExit = styled.div`
   display: block; /* На данном этапе просто отображаем, либо управляем через ID/Маршруты */

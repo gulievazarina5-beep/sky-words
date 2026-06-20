@@ -1,5 +1,5 @@
-import * as S from './main.styled';
-import Column from '../column/column'; 
+import * as S from './Main.styled';
+import Column from '../Column/Column'; 
 
 export default function Main({ cards }) {
   // Список всех пяти колонок на доске

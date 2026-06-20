@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as S from "./header.styled"; // Импортируем стили
+import * as S from "./Header.styled"; // Импортируем стили
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

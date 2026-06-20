@@ -1,4 +1,4 @@
-import * as S from './popuser.styled';
+import * as S from './PopUser.styled';
 
 export default function PopUser() {
   return (

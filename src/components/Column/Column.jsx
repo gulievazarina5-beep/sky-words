@@ -1,5 +1,5 @@
-import * as S from './column.styled';
-import Card from '../card/card'; // Путь к карточке с маленькой буквы
+import * as S from './Column.styled';
+import Card from '../Card/Card'; // Путь к карточке с маленькой буквы
 
 export default function Column({ title, cards }) {
   return (
