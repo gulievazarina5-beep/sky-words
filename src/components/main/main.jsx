@@ -1,16 +1,29 @@
 import Column from "../Column/Column";
 
-export default function Main() {
+// Массив со всеми статусами (колонками)
+const statusList = [
+  "Без статуса",
+  "Нужно сделать",
+  "В работе",
+  "Тестирование",
+  "Готово"
+];
+
+// Принимаем пропс cards, который мы передали из App.jsx
+export default function Main({ cards }) {
   return (
     <main className="main">
       <div className="container">
         <div className="main__block">
           <div className="main__content">
-            <Column title="Без статуса" />
-            <Column title="Нужно сделать" />
-            <Column title="В работе" />
-            <Column title="Тестирование" />
-            <Column title="Готово" />
+            {/* Рендерим колонки динамически через map, чтобы не дублировать код */}
+            {statusList.map((status) => (
+              <Column 
+                key={status} 
+                title={status} 
+                cards={cards.filter((card) => card.status === status)} 
+              />
+            ))}
           </div>
         </div>
       </div>

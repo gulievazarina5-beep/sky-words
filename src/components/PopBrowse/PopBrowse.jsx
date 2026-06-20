@@ -25,31 +25,40 @@ export default function PopBrowse() {
                 </div>
               </div>
               
-              <div className="pop-browse__status status">
-                <p className="status__ttl subttl">Статус</p>
-                <div className="status__themes">
-                  <div className="status__theme _hide">
-                    <p>Без статуса</p>
-                  </div>
-                  <div className="status__theme _gray">
-                    <p className="_gray">Нужно сделать</p>
-                  </div>
-                  <div className="status__theme _orange _active-category">
-                    <p className="_orange">В работе</p>
-                  </div>
-                  <div className="status__theme _hide">
-                    <p>Тестирование</p>
-                  </div>
-                  <div className="status__theme _hide">
-                    <p>Готово</p>
+              {/* НАДЁЖНОЕ ИСПРАВЛЕНИЕ: Выстраиваем блоки строго в одну линию горизонтально */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '40px', flex: 1 }}>
+                
+                {/* Блок Статуса */}
+                <div className="pop-browse__status status" style={{ margin: 0, minWidth: '180px' }}>
+                  <p className="status__ttl subttl">Статус</p>
+                  <div className="status__themes">
+                    <div className="status__theme _hide">
+                      <p>Без статуса</p>
+                    </div>
+                    <div className="status__theme _gray">
+                      <p className="_gray">Нужно сделать</p>
+                    </div>
+                    <div className="status__theme _orange _active-category">
+                      <p className="_orange">В работе</p>
+                    </div>
+                    <div className="status__theme _hide">
+                      <p>Тестирование</p>
+                    </div>
+                    <div className="status__theme _hide">
+                      <p>Готово</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="pop-browse__wrap-calendar">
-                <p className="subttl">Срок выполнения:</p>
-                <div className="pop-browse__date">28.05.26</div>
+                {/* Блок Календаря */}
+                <div className="pop-browse__wrap-calendar" style={{ margin: 0 }}>
+                  <p className="subttl" style={{ marginBottom: '14px' }}>Срок выполнения:</p>
+                  <div className="pop-browse__date">28.05.26</div>
+                </div>
+
               </div>
+              {/* Конец флекс-контейнера */}
+
             </div>
 
             <div className="pop-browse__btn-browse">
