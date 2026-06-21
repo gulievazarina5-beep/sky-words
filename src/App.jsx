@@ -4,32 +4,38 @@ import Header from './components/Header/Header'
 import Main from './components/Main/Main'
 import PopUser from './components/PopUser/PopUser'
 import PopNewCard from './components/PopNewCard/PopNewCard'
-import PopBrowse from './components/popbrowse/popbrowse.jsx'
-// ИМПОРТ: Подключаем наш массив данных из файла data.js
+import PopBrowse from './components/PopBrowse/PopBrowse.jsx'
 import { cardList } from './data.js'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
+
+  // Следим за изменением хэша в адресной строке, чтобы открывать/закрывать модалки
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className="wrapper">
-      {/* Модальные окна (Popups) */}
-      <PopUser />
-      <PopNewCard />
-      <PopBrowse />
+      {/* Модальные окна рендерятся строго по условию хэша, не перекрывая друг друга */}
+      {currentHash === '#popExit' && <PopUser />}
+      {currentHash === '#popNewCard' && <PopNewCard />}
+      {currentHash === '#popBrowse' && <PopBrowse />}
 
-      {/* Основной контент сайта */}
       <Header />
       
-      {/* ПЕРЕДАЧА ДАННЫХ: Передаем массив cardList в компонент Main через пропсы */}
       {isLoading ? (
         <div style={{ textAlign: 'center', padding: '100px', fontSize: '24px', fontWeight: 'bold' }}>
           Данные загружаются...
