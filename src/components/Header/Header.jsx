@@ -1,12 +1,20 @@
 import { useState } from "react";
-import * as S from "./Header.styled"; // Импортируем стили
+import { Link, useNavigate } from "react-router-dom"; // Добавили useNavigate
+import * as S from "./Header.styled"; 
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate(); // Инициализируем хук навигации
 
   const toggleMenu = (event) => {
     event.preventDefault();
     setIsOpen(!isOpen);
+  };
+
+  // Новая функция для программного перехода на страницу создания задачи
+  const handleNewCardClick = (event) => {
+    event.preventDefault();
+    navigate('/new-card'); // Жестко перенаправляем на правильный адрес без пробелов
   };
 
   return (
@@ -15,27 +23,27 @@ export default function Header() {
         <S.HeaderBlock>
           
           <S.LogoLight>
-            <a href="" target="_self">
+            <Link to="/">
               <img src="images/logo.png" alt="logo" />
-            </a>
+            </Link>
           </S.LogoLight>
 
           <S.LogoDark>
-            <a href="" target="_self">
+            <Link to="/">
               <img src="images/logo_dark.png" alt="logo" />
-            </a>
+            </Link>
           </S.LogoDark>
 
           <S.HeaderNav>
-            <S.BtnMainNew id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            {/* Навесили обычное событие onClick, которое вызовет нашу функцию */}
+            <S.BtnMainNew onClick={handleNewCardClick} id="btnMainNew">
+              Создать новую задачу
             </S.BtnMainNew>
             
             <S.HeaderUser href="#" onClick={toggleMenu}>
               Ivan Ivanov
             </S.HeaderUser>
 
-            {/* Передаем состояние видимости в проп $isOpen */}
             <S.PopUserSet $isOpen={isOpen}>
               <p className="name">Ivan Ivanov</p>
               <p className="mail">ivan.ivanov@gmail.com</p>
@@ -45,8 +53,10 @@ export default function Header() {
                 <input type="checkbox" className="checkbox" name="checkbox" />
               </div>
               
-              <button type="button">
-                <a href="#popExit">Выйти</a>
+              <button type="button" style={{ border: 'none', background: 'none', padding: 0, width: '100%' }}>
+                <Link to="/exit" style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none', color: 'inherit' }}>
+                  Выйти
+                </Link>
               </button>
             </S.PopUserSet>
 

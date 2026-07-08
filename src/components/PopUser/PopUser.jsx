@@ -1,6 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import * as S from './PopUser.styled';
 
-export default function PopUser() {
+export default function PopUser({ setIsAuth }) {
+  const navigate = useNavigate();
+
+  // Функция для подтверждения выхода
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setIsAuth(false);   // 1. Сбрасываем статус авторизации в false
+    navigate('/login'); // 2. Уводим пользователя на страницу входа
+  };
+
+  // Функция для отмены выхода (просто закрывает окно)
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate('/'); // Возвращаем на главную страницу, модалка исчезнет
+  };
+
   return (
     <S.PopExit id="popExit">
       <S.PopExitContainer>
@@ -13,13 +29,14 @@ export default function PopUser() {
           <S.PopExitForm id="formExit" action="#">
             <S.PopExitFormGroup>
               
-              {/* Чистые ссылки внутри наших стилизованных кнопок */}
-              <S.BtnYes id="exitYes">
-                <a href="#">Да, выйти</a>
+              {/* Кнопка "Да" вызывает handleLogout */}
+              <S.BtnYes id="exitYes" onClick={handleLogout} type="button">
+                Да, выйти
               </S.BtnYes>
               
-              <S.BtnNo id="exitNo">
-                <a href="#">Нет, остаться</a>
+              {/* Кнопка "Нет" вызывает handleCancel */}
+              <S.BtnNo id="exitNo" onClick={handleCancel} type="button">
+                Нет, остаться
               </S.BtnNo>
               
             </S.PopExitFormGroup>

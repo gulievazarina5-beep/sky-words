@@ -12,6 +12,7 @@ export default function Column({ title, cards }) {
         {cards.map((card) => (
           <Card 
             key={card.id}
+            id={card.id} /* Передаем уникальный id карточки для формирования роута */
             title={card.title}
             theme={card.theme}
             date={card.date}

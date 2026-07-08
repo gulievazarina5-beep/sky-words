@@ -1,13 +1,30 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function PopNewCard() {
+  const navigate = useNavigate();
+
+  // Функция для закрытия модального окна и возврата на главную доску
+  const handleClose = (e) => {
+    e.preventDefault();
+    navigate('/'); // Сменяет адрес на "/"
+  };
+
   return (
     <div className="pop-new-card" id="popNewCard">
       <div className="pop-new-card__container">
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">
+            
+            {/* Превратили ссылку в кнопку-крестик, которая вызывает закрытие */}
+            <button 
+              onClick={handleClose} 
+              className="pop-new-card__close" 
+              style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+            >
               ✖
-            </a>
+            </button>
+            
             <div className="pop-new-card__wrap">
               <form
                 className="pop-new-card__form form-new"
@@ -91,42 +108,28 @@ export default function PopNewCard() {
                       <div className="calendar__cell _cell-day">7</div>
                       <div className="calendar__cell _cell-day _current">8</div>
                       <div className="calendar__cell _cell-day _weekend">9</div>
-                      <div className="calendar__cell _cell-day _weekend">
-                        10
-                      </div>
+                      <div className="calendar__cell _cell-day _weekend">10</div>
                       <div className="calendar__cell _cell-day">11</div>
                       <div className="calendar__cell _cell-day">12</div>
                       <div className="calendar__cell _cell-day">13</div>
                       <div className="calendar__cell _cell-day">14</div>
                       <div className="calendar__cell _cell-day">15</div>
-                      <div className="calendar__cell _cell-day _weekend">
-                        16
-                      </div>
-                      <div className="calendar__cell _cell-day _weekend">
-                        17
-                      </div>
+                      <div className="calendar__cell _cell-day _weekend">16</div>
+                      <div className="calendar__cell _cell-day _weekend">17</div>
                       <div className="calendar__cell _cell-day">18</div>
                       <div className="calendar__cell _cell-day">19</div>
                       <div className="calendar__cell _cell-day">20</div>
                       <div className="calendar__cell _cell-day">21</div>
                       <div className="calendar__cell _cell-day">22</div>
-                      <div className="calendar__cell _cell-day _weekend">
-                        23
-                      </div>
-                      <div className="calendar__cell _cell-day _weekend">
-                        24
-                      </div>
+                      <div className="calendar__cell _cell-day _weekend">23</div>
+                      <div className="calendar__cell _cell-day _weekend">24</div>
                       <div className="calendar__cell _cell-day">25</div>
                       <div className="calendar__cell _cell-day">26</div>
                       <div className="calendar__cell _cell-day">27</div>
                       <div className="calendar__cell _cell-day">28</div>
                       <div className="calendar__cell _cell-day">29</div>
-                      <div className="calendar__cell _cell-day _weekend">
-                        30
-                      </div>
-                      <div className="calendar__cell _other-month _weekend">
-                        1
-                      </div>
+                      <div className="calendar__cell _cell-day _weekend">30</div>
+                      <div className="calendar__cell _other-month _weekend">1</div>
                     </div>
                   </div>
                   <input

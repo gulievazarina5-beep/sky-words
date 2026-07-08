@@ -1,28 +1,31 @@
-import * as S from './Card.styled'; // Импорт с маленькой буквы
+import { Link } from 'react-router-dom'; // Импортируем Link
+import * as S from './Card.styled'; 
 
-export default function Card({ title, theme, date }) {
+// Обязательно добавляем id в список принимаемых пропсов карточки
+export default function Card({ id, title, theme, date }) {
   return (
     <S.CardsItem>
       <S.CardContainer>
         <S.CardGroup>
-          {/* Пропс передается строго через знак равенства = */}
           <S.CardTheme $theme={theme}>
             <p>{theme}</p>
           </S.CardTheme>
           
-          <a href="#popBrowse" target="_self">
+          {/* Заменяем тег <a> на <Link> и подставляем динамический id карточки */}
+          <Link to={`/card/${id}`}>
             <S.CardBtn>
               <div></div>
               <div></div>
               <div></div>
             </S.CardBtn>
-          </a>
+          </Link>
         </S.CardGroup>
         
         <S.CardContent>
-          <a href="#" rel="noreferrer">
+          {/* Здесь тоже меняем ссылку на заголовок, чтобы при клике на текст карточка тоже открывалась */}
+          <Link to={`/card/${id}`} style={{ textDecoration: 'none' }}>
             <S.CardTitle>{title}</S.CardTitle>
-          </a>
+          </Link>
           
           <S.CardDate>
             <svg xmlns="http://w3.org" width="13" height="13" viewBox="0 0 13 13" fill="none">
