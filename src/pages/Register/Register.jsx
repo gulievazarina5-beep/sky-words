@@ -1,8 +1,10 @@
+import * as S from './Register.styled';
+
 export const Register = () => {
   return (
-    <div style={{ padding: '20px' }}>
+    <S.RegisterContainer>
       <h2>Страница Регистрации</h2>
       <p>Здесь будет форма создания нового аккаунта.</p>
-    </div>
+    </S.RegisterContainer>
   );
 };

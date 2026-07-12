@@ -22,3 +22,15 @@ export const MainBlock = styled.div`
   align-items: flex-start;
   gap: 20px; /* Отступы между самими колонками */
 `;
+
+export const Wrapper = styled.div`
+  position: relative;
+  min-height: 100vh;
+`;
+
+export const LoadingText = styled.div`
+  text-align: center;
+  padding: 100px;
+  font-size: 24px;
+  font-weight: bold;
+`;

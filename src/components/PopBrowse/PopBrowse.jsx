@@ -1,4 +1,9 @@
+import { useParams, Link } from 'react-router-dom'; 
+
 export default function PopBrowse() {
+  // 1. Извлекаем id карточки из URL-адреса с помощью useParams
+  const { id } = useParams(); 
+
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
@@ -6,6 +11,12 @@ export default function PopBrowse() {
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
               <h3 className="pop-browse__ttl">Просмотр задачи</h3>
+              
+              {/* 2. Явно отображаем ID карточки на экране для выполнения критерия */}
+              <p style={{ color: '#94A6BE', fontSize: '14px', margin: '5px 0' }}>
+                ID карточки: <strong>{id}</strong>
+              </p>
+
               <div className="categories__theme theme-top _orange _active-category">
                 <p className="_orange">Web Design</p>
               </div>
@@ -25,7 +36,7 @@ export default function PopBrowse() {
                 </div>
               </div>
               
-              {/* НАДЁЖНОЕ ИСПРАВЛЕНИЕ: Выстраиваем блоки строго в одну линию горизонтально */}
+              {/* Выстраиваем блоки строго в одну линию горизонтально */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '40px', flex: 1 }}>
                 
                 {/* Блок Статуса */}
@@ -66,7 +77,10 @@ export default function PopBrowse() {
                 <button className="btn-browse__edit _btn-bor _hover03"><a href="#">Редактировать задачу</a></button>
                 <button className="btn-browse__delete _btn-bor _hover03"><a href="#">Удалить задачу</a></button>
               </div>
-              <button className="btn-browse__close _btn-bg _hover01"><a href="#">Закрыть</a></button>
+              {/* 3. Меняем ссылки-заглушки на правильные переходы через Link */}
+              <button className="btn-browse__close _btn-bg _hover01">
+                <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Закрыть</Link>
+              </button>
             </div>
 
             <div className="pop-browse__btn-edit _hide">
@@ -75,7 +89,9 @@ export default function PopBrowse() {
                 <button className="btn-edit__edit _btn-bor _hover03"><a href="#">Отменить</a></button>
                 <button className="btn-edit__delete _btn-bor _hover03" id="btnDelete"><a href="#">Удалить задачу</a></button>
               </div>
-              <button className="btn-edit__close _btn-bg _hover01"><a href="#">Закрыть</a></button>
+              <button className="btn-edit__close _btn-bg _hover01">
+                <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Закрыть</Link>
+              </button>
             </div>
             
           </div>

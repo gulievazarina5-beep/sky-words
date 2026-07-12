@@ -1,8 +1,10 @@
+import * as S from './NotFound.styled';
+
 export const NotFound = () => {
   return (
-    <div style={{ padding: '20px', color: 'red' }}>
+    <S.NotFoundContainer>
       <h2>404: Страница не найдена</h2>
       <p>Ой! Похоже, такой страницы не существует.</p>
-    </div>
+    </S.NotFoundContainer>
   );
 };

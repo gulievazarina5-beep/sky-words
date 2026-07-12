@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import * as S from './Login.styled'; // Импортируем созданные стили
 
 export const Login = ({ setIsAuth }) => {
   const navigate = useNavigate();
@@ -9,9 +10,9 @@ export const Login = ({ setIsAuth }) => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Страница Входа (Логин)</h2>
-      <button onClick={handleLogin}>Войти в аккаунт</button>
-    </div>
+    <S.LoginContainer>
+      <S.LoginTitle>Страница Входа (Логин)</S.LoginTitle>
+      <S.LoginButton onClick={handleLogin}>Войти в аккаунт</S.LoginButton>
+    </S.LoginContainer>
   );
 };
