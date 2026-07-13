@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Добавили useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./Header.styled"; 
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate(); // Инициализируем хук навигации
+  const navigate = useNavigate();
 
   const toggleMenu = (event) => {
     event.preventDefault();
     setIsOpen(!isOpen);
   };
 
-  // Новая функция для программного перехода на страницу создания задачи
   const handleNewCardClick = (event) => {
     event.preventDefault();
-    navigate('/new-card'); // Жестко перенаправляем на правильный адрес без пробелов
+    navigate('/new-card');
   };
 
   return (
@@ -35,7 +34,6 @@ export default function Header() {
           </S.LogoDark>
 
           <S.HeaderNav>
-            {/* Навесили обычное событие onClick, которое вызовет нашу функцию */}
             <S.BtnMainNew onClick={handleNewCardClick} id="btnMainNew">
               Создать новую задачу
             </S.BtnMainNew>
@@ -53,11 +51,9 @@ export default function Header() {
                 <input type="checkbox" className="checkbox" name="checkbox" />
               </div>
               
-              <button type="button" style={{ border: 'none', background: 'none', padding: 0, width: '100%' }}>
-                <Link to="/exit" style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none', color: 'inherit' }}>
-                  Выйти
-                </Link>
-              </button>
+              <S.PopUserExitBtn to="/exit">
+                Выйти
+              </S.PopUserExitBtn>
             </S.PopUserSet>
 
           </S.HeaderNav>

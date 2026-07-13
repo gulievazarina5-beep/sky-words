@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled.header`
   width: 100%;
@@ -19,7 +20,6 @@ export const HeaderBlock = styled.div`
   justify-content: space-between;
 `;
 
-// Стили для логотипов (светлая тема по умолчанию)
 export const LogoLight = styled.div`
   img {
     width: 85px;
@@ -27,7 +27,7 @@ export const LogoLight = styled.div`
 `;
 
 export const LogoDark = styled.div`
-  display: none; /* Скрыто в светлой теме */
+  display: none;
   img {
     width: 85px;
   }
@@ -37,7 +37,7 @@ export const HeaderNav = styled.nav`
   display: flex;
   align-items: center;
   gap: 20px;
-  position: relative; /* Чтобы попап позиционировался относительно навигации */
+  position: relative;
 `;
 
 export const BtnMainNew = styled.button`
@@ -52,11 +52,6 @@ export const BtnMainNew = styled.button`
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.2s ease;
-
-  a {
-    color: #ffffff;
-    text-decoration: none;
-  }
 
   &:hover {
     background-color: #33399b;
@@ -75,7 +70,6 @@ export const HeaderUser = styled.a`
   }
 `;
 
-// Стилизованный попап пользователя, управляемый через пропс $isOpen
 export const PopUserSet = styled.div`
   display: ${(props) => (props.$isOpen ? 'block' : 'none')};
   position: absolute;
@@ -89,18 +83,21 @@ export const PopUserSet = styled.div`
   border-radius: 12px;
   padding: 25px;
   z-index: 10;
+  box-sizing: border-box;
 
   .name {
     font-size: 14px;
     font-weight: 700;
     color: #000000;
     margin-bottom: 4px;
+    text-align: left;
   }
 
   .mail {
     font-size: 12px;
     color: #94a6be;
     margin-bottom: 15px;
+    text-align: left;
   }
 
   .theme {
@@ -111,28 +108,65 @@ export const PopUserSet = styled.div`
     p {
       font-size: 14px;
       color: #000000;
+      margin: 0;
     }
-  }
-
-  button {
-    width: 72px;
-    height: 30px;
-    background: transparent;
-    border: 1px solid #565eef;
-    border-radius: 4px;
-    cursor: pointer;
     
-    a {
-      color: #565eef;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    &:hover {
-      background-color: #565eef;
-      a {
-        color: #ffffff;
+    .checkbox {
+      position: relative;
+      width: 24px;
+      height: 14px;
+      -webkit-appearance: none;
+      background: #eaeaea;
+      outline: none;
+      border-radius: 15px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      transition: .5s;
+      cursor: pointer;
+      
+      &:checked {
+        background: #565eef;
+      }
+      
+      &:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        top: 2px;
+        left: 2px;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: .5s;
+      }
+      
+      &:checked:before {
+        left: 12px;
       }
     }
+  }
+`;
+
+export const PopUserExitBtn = styled(Link)`
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 72px !important;
+  height: 30px !important;
+  background: transparent !important;
+  border: 1px solid #565EEF !important;
+  border-radius: 4px !important;
+  color: #565EEF !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  margin: 0 auto !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+
+  &:hover {
+    background-color: #565EEF !important;
+    color: #ffffff !important;
   }
 `;

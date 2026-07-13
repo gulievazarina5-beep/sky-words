@@ -1,18 +1,47 @@
 import { useNavigate } from 'react-router-dom';
-import * as S from './Login.styled'; // Импортируем созданные стили
+import * as S from './login.styled';
 
-export const Login = ({ setIsAuth }) => {
+export const Login = ({ onLogin }) => {
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    setIsAuth(true); // 1. Меняем статус на "авторизован"
-    navigate('/');   // 2. Мгновенно перенаправляем пользователя на главную страницу
+  const handleLogin = (e) => {
+    e.preventDefault();
+    onLogin();       
+    navigate('/');   
   };
 
   return (
-    <S.LoginContainer>
-      <S.LoginTitle>Страница Входа (Логин)</S.LoginTitle>
-      <S.LoginButton onClick={handleLogin}>Войти в аккаунт</S.LoginButton>
-    </S.LoginContainer>
+    <S.ContainerSignin>
+      <S.Modal>
+        <S.ModalBlock>
+          <S.ModalTitle>
+            <h2>Вход</h2>
+          </S.ModalTitle>
+          <S.ModalForm onSubmit={handleLogin}>
+            <S.ModalInput 
+              type="text" 
+              name="login" 
+              id="formlogin" 
+              placeholder="Эл. почта" 
+            />
+            <S.ModalInput 
+              type="password" 
+              name="password" 
+              id="formpassword" 
+              placeholder="Пароль" 
+            />
+            <S.ModalBtnEnter type="submit">
+              Войти
+            </S.ModalBtnEnter>
+            <S.ModalFormGroup>
+              <p>Нужно зарегистрироваться?</p>
+              <S.ModalLink to="/register">
+                Регистрируйтесь здесь
+              </S.ModalLink>
+            </S.ModalFormGroup>
+          </S.ModalForm>
+        </S.ModalBlock>
+      </S.Modal>
+    </S.ContainerSignin>
   );
 };

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 export default function PopNewCard() {
   const navigate = useNavigate();
 
-  // Функция для закрытия модального окна и возврата на главную доску
+
   const handleClose = (e) => {
     e.preventDefault();
-    navigate('/'); // Сменяет адрес на "/"
+    navigate('/'); 
   };
 
   return (
@@ -16,7 +16,6 @@ export default function PopNewCard() {
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
             
-            {/* Превратили ссылку в кнопку-крестик, которая вызывает закрытие */}
             <button 
               onClick={handleClose} 
               className="pop-new-card__close" 

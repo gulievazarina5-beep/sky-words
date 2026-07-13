@@ -310,19 +310,15 @@ body {
 
 .pop-new-card {
     display: flex;
-    /* Вместо none ставим flex, чтобы окно было видно */
     width: 100%;
     min-width: 375px;
     height: 100%;
     min-height: 100vh;
     position: fixed;
-    /* Изменили на fixed, чтобы оно застыло поверх экрана */
     top: 0;
     left: 0;
     z-index: 999;
-    /* Поставили большой z-index, чтобы перекрыть всю доску */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Добавили полупрозрачный фон */
 }
 
 .pop-new-card__container {
@@ -612,7 +608,6 @@ body {
 }
 
 .pop-browse {
-    display: none;
     width: 100%;
     height: 100%;
     min-width: 375px;
@@ -1224,18 +1219,15 @@ body {
     }
 }
 
-/* Исправление отступов и высоты карточек */
 .cards__item {
     padding: 0px !important;
     margin-bottom: 14px !important;
-    /* Делаем красивый отступ между карточками */
     display: block;
 }
 
 .cards__card {
     width: 220px !important;
     height: auto !important;
-    /* Убираем жесткую высоту 130px */
     min-height: 130px;
     padding: 15px 13px 19px !important;
 }
