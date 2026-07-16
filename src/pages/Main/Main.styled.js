@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MainContent = styled.main`
   width: 100%;
-  background-color: #f1f1f1;
+  background-color: #EAEEF6;
   padding: 60px 0;
   min-height: calc(100vh - 70px);
 `;
@@ -13,12 +13,23 @@ export const MainContainer = styled.div`
   margin: 0 auto;
 `;
 
-// Самый важный блок! Распределяет 5 колонок в один горизонтальный ряд
 export const MainBlock = styled.div`
   width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px; /* Отступы между самими колонками */
+  gap: 20px;
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  min-height: 100vh;
+`;
+
+export const LoadingText = styled.div`
+  text-align: center;
+  padding: 100px;
+  font-size: 24px;
+  font-weight: bold;
 `;

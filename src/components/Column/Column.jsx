@@ -1,5 +1,5 @@
 import * as S from './Column.styled';
-import Card from '../Card/Card'; // Путь к карточке с маленькой буквы
+import Card from '../Card/Card';
 
 export default function Column({ title, cards }) {
   return (
@@ -7,11 +7,12 @@ export default function Column({ title, cards }) {
       <S.ColumnTitle>
         <p>{title}</p>
       </S.ColumnTitle>
-      
+
       <S.CardsContainer>
         {cards.map((card) => (
-          <Card 
+          <Card
             key={card.id}
+            id={card.id}
             title={card.title}
             theme={card.theme}
             date={card.date}

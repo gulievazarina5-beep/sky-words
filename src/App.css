@@ -40,11 +40,13 @@ ul li {
         height: 0;
         opacity: 0;
     }
+
     100% {
         height: auto;
         opacity: 1;
     }
 }
+
 html,
 body {
     width: 100%;
@@ -72,10 +74,13 @@ body {
     background-color: #33399b;
 }
 
-._hover02:hover, .header__user:hover {
+._hover02:hover,
+.header__user:hover {
     color: #33399b;
 }
-._hover02:hover::after, .header__user:hover::after {
+
+._hover02:hover::after,
+.header__user:hover::after {
     border-left-color: #33399b;
     border-bottom-color: #33399b;
 }
@@ -84,6 +89,7 @@ body {
     background-color: #33399b;
     color: #FFFFFF;
 }
+
 ._hover03:hover a {
     color: #FFFFFF;
 }
@@ -136,6 +142,7 @@ body {
     left: 0;
     z-index: 5;
 }
+
 .pop-exit__container {
     width: 100%;
     height: 100%;
@@ -147,6 +154,7 @@ body {
     justify-content: center;
     background: rgba(0, 0, 0, 0.4);
 }
+
 .pop-exit__block {
     display: block;
     margin: 0 auto;
@@ -158,6 +166,7 @@ body {
     border: 0.7px solid #D4DBE5;
     box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 }
+
 .pop-exit__ttl h2 {
     text-align: center;
     font-size: 20px;
@@ -166,6 +175,7 @@ body {
     letter-spacing: -0.4px;
     margin-bottom: 20px;
 }
+
 .pop-exit__exit-yes {
     width: 153px;
     height: 30px;
@@ -183,6 +193,7 @@ body {
     color: #FFFFFF;
     margin-right: 10px;
 }
+
 .pop-exit__exit-yes a {
     width: 100%;
     height: 100%;
@@ -191,6 +202,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .pop-exit__exit-no {
     width: 153px;
     height: 30px;
@@ -216,6 +228,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .pop-exit__form-group {
     width: 100%;
     display: flex;
@@ -231,6 +244,7 @@ body {
     letter-spacing: -0.14px;
     margin-bottom: 4px;
 }
+
 .pop-user-set__mail {
     color: #94A6BE;
     font-size: 14px;
@@ -238,18 +252,21 @@ body {
     letter-spacing: -0.14px;
     margin-bottom: 10px;
 }
+
 .pop-user-set__theme {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
+
 .pop-user-set__theme p {
     color: #000;
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.14px;
 }
+
 .pop-user-set__theme input[type=checkbox] {
     position: relative;
     width: 24px;
@@ -261,6 +278,7 @@ body {
     -moz-appearance: none;
     appearance: none;
 }
+
 .pop-user-set__theme input[type=checkbox]::before {
     content: "";
     position: absolute;
@@ -272,9 +290,11 @@ body {
     background-color: #94A6BE;
     transition: 0.5s;
 }
+
 .pop-user-set__theme input:checked[type=checkbox]::before {
     left: 12px;
 }
+
 .pop-user-set button {
     width: 72px;
     height: 30px;
@@ -283,21 +303,24 @@ body {
     border-radius: 4px;
     border: 1px solid #565EEF;
 }
+
 .pop-user-set button a {
     color: #565EEF;
 }
 
 .pop-new-card {
-    display: none;
+    display: flex;
     width: 100%;
     min-width: 375px;
     height: 100%;
     min-height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 6;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.4);
 }
+
 .pop-new-card__container {
     width: 100%;
     height: 100%;
@@ -321,10 +344,12 @@ body {
     border: 0.7px solid #D4DBE5;
     position: relative;
 }
+
 .pop-new-card__content {
     display: block;
     text-align: left;
 }
+
 .pop-new-card__ttl {
     color: #000;
     font-size: 20px;
@@ -332,6 +357,7 @@ body {
     line-height: 24px;
     margin-bottom: 20px;
 }
+
 .pop-new-card__close {
     position: absolute;
     top: 20px;
@@ -339,14 +365,17 @@ body {
     color: #94A6BE;
     cursor: pointer;
 }
+
 .pop-new-card__close:hover {
     color: #000000;
 }
+
 .pop-new-card__wrap {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
+
 .pop-new-card__form {
     max-width: 370px;
     width: 100%;
@@ -358,7 +387,9 @@ body {
     display: flex;
     flex-direction: column;
 }
-.form-new__input, .form-new__area {
+
+.form-new__input,
+.form-new__area {
     width: 100%;
     outline: none;
     padding: 14px;
@@ -369,28 +400,35 @@ body {
     line-height: 1;
     letter-spacing: -0.14px;
 }
-.form-new__input::-moz-placeholder, .form-new__area::-moz-placeholder {
+
+.form-new__input::-moz-placeholder,
+.form-new__area::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
     color: #94A6BE;
     letter-spacing: -0.14px;
 }
-.form-new__input::placeholder, .form-new__area::placeholder {
+
+.form-new__input::placeholder,
+.form-new__area::placeholder {
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
     color: #94A6BE;
     letter-spacing: -0.14px;
 }
+
 .form-new__input {
     margin: 20px 0;
 }
+
 .form-new__area {
     max-width: 370px;
     margin-top: 14px;
     height: 200px;
 }
+
 .form-new__create {
     width: 132px;
     height: 30px;
@@ -416,30 +454,37 @@ body {
     width: 182px;
     margin-bottom: 20px;
 }
+
 .calendar__ttl {
     margin-bottom: 14px;
     padding: 0 7px;
 }
+
 .calendar__p {
     color: #94A6BE;
     font-size: 10px;
     line-height: 1;
 }
+
 .calendar__p span {
     color: #000000;
 }
+
 .calendar__block {
     display: block;
 }
+
 .calendar__month {
     color: #94A6BE;
     font-size: 14px;
     line-height: 25px;
     font-weight: 600;
 }
+
 .calendar__content {
     margin-bottom: 12px;
 }
+
 .calendar__days-names {
     display: flex;
     flex-wrap: nowrap;
@@ -448,6 +493,7 @@ body {
     margin: 7px 0;
     padding: 0 7px;
 }
+
 .calendar__day-name {
     color: #94A6BE;
     font-size: 10px;
@@ -455,12 +501,14 @@ body {
     line-height: normal;
     letter-spacing: -0.2px;
 }
+
 .calendar__cells {
     width: 182px;
     height: 126px;
     display: flex;
     flex-wrap: wrap;
 }
+
 .calendar__cell {
     width: 22px;
     height: 22px;
@@ -476,6 +524,7 @@ body {
     letter-spacing: -0.2px;
     cursor: pointer;
 }
+
 .calendar__nav {
     width: 100%;
     display: flex;
@@ -484,6 +533,7 @@ body {
     margin-top: 14px;
     padding: 0 7px;
 }
+
 .calendar__period {
     padding: 0 7px;
 }
@@ -493,6 +543,7 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+
 .nav__action {
     width: 18px;
     height: 25px;
@@ -501,6 +552,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .nav__action svg {
     fill: #94A6BE;
 }
@@ -526,15 +578,18 @@ body {
 .categories {
     margin-bottom: 20px;
 }
+
 .categories__themes {
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-start;
     justify-content: flex-start;
 }
+
 .categories__p {
     margin-bottom: 14px;
 }
+
 .categories__theme {
     display: inline-block;
     width: auto;
@@ -544,6 +599,7 @@ body {
     margin-right: 7px;
     opacity: 0.4;
 }
+
 .categories__theme p {
     font-size: 14px;
     font-weight: 600;
@@ -552,7 +608,6 @@ body {
 }
 
 .pop-browse {
-    display: none;
     width: 100%;
     height: 100%;
     min-width: 375px;
@@ -562,6 +617,7 @@ body {
     left: 0;
     z-index: 7;
 }
+
 .pop-browse__container {
     width: 100%;
     height: 100%;
@@ -573,6 +629,7 @@ body {
     justify-content: center;
     background: rgba(0, 0, 0, 0.4);
 }
+
 .pop-browse__block {
     display: block;
     margin: 0 auto;
@@ -584,26 +641,32 @@ body {
     border: 0.7px solid #D4DBE5;
     position: relative;
 }
+
 .pop-browse__content {
     display: block;
     text-align: left;
 }
+
 .pop-browse__content .categories__theme {
     opacity: 1;
 }
+
 .pop-browse__content .theme-down {
     display: none;
     margin-bottom: 20px;
 }
+
 .pop-browse__content .theme-top {
     display: block;
 }
+
 .pop-browse__top-block {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 18px;
 }
+
 .pop-browse__ttl {
     color: #000;
     font-size: 20px;
@@ -616,24 +679,31 @@ body {
     align-items: flex-start;
     justify-content: space-between;
 }
+
 .pop-browse__form {
     max-width: 370px;
     width: 100%;
     display: block;
     margin-bottom: 20px;
 }
-.pop-browse__btn-browse, .pop-browse__btn-edit {
+
+.pop-browse__btn-browse,
+.pop-browse__btn-edit {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
 }
-.pop-browse__btn-browse button, .pop-browse__btn-edit button {
+
+.pop-browse__btn-browse button,
+.pop-browse__btn-edit button {
     height: 30px;
     margin-bottom: 10px;
     padding: 0 14px;
 }
-.pop-browse__btn-browse .btn-group button, .pop-browse__btn-edit .btn-group button {
+
+.pop-browse__btn-browse .btn-group button,
+.pop-browse__btn-edit .btn-group button {
     margin-right: 8px;
 }
 
@@ -641,6 +711,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .form-browse__area {
     max-width: 370px;
     width: 100%;
@@ -655,6 +726,7 @@ body {
     margin-top: 14px;
     height: 200px;
 }
+
 .form-browse__area::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -662,6 +734,7 @@ body {
     color: #94A6BE;
     letter-spacing: -0.14px;
 }
+
 .form-browse__area::placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -673,15 +746,18 @@ body {
 .status {
     margin-bottom: 11px;
 }
+
 .status__p {
     margin-bottom: 14px;
 }
+
 .status__themes {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: flex-start;
 }
+
 .status__theme {
     border-radius: 24px;
     border: 0.7px solid rgba(148, 166, 190, 0.4);
@@ -690,6 +766,7 @@ body {
     margin-right: 7px;
     margin-bottom: 7px;
 }
+
 .status__theme p {
     font-size: 14px;
     line-height: 1;
@@ -703,6 +780,7 @@ body {
     background: transparent;
     color: #565EEF;
 }
+
 ._btn-bor a {
     color: #565EEF;
 }
@@ -714,6 +792,7 @@ body {
     outline: none;
     color: #FFFFFF;
 }
+
 ._btn-bg a {
     color: #FFFFFF;
 }
@@ -731,6 +810,7 @@ body {
     margin: 0 auto;
     background-color: #FFFFFF;
 }
+
 .header__block {
     height: 70px;
     display: flex;
@@ -742,9 +822,11 @@ body {
     left: 0;
     padding: 0 10px;
 }
+
 .header__logo img {
     width: 85px;
 }
+
 .header__nav {
     max-width: 290px;
     padding: 0;
@@ -752,6 +834,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .header__btn-main-new {
     width: 178px;
     height: 30px;
@@ -764,9 +847,11 @@ body {
     font-weight: 500;
     margin-right: 20px;
 }
+
 .header__btn-main-new a {
     color: #FFFFFF;
 }
+
 .header__user {
     height: 20px;
     display: flex;
@@ -777,6 +862,7 @@ body {
     line-height: 20px;
     color: #565EEF;
 }
+
 .header__user::after {
     content: "";
     display: block;
@@ -789,6 +875,7 @@ body {
     margin: -6px 0 0 5px;
     padding: 0;
 }
+
 .header__pop-user-set {
     display: none;
     position: absolute;
@@ -815,10 +902,12 @@ body {
     margin: 0 auto;
     padding: 25px 0 49px;
 }
+
 .main__content {
     width: 100%;
     display: flex;
 }
+
 .main__column {
     width: 20%;
     margin: 0 auto;
@@ -829,6 +918,7 @@ body {
     padding: 0 10px;
     margin: 15px 0;
 }
+
 .column__title p {
     color: #94A6BE;
     font-size: 14px;
@@ -857,17 +947,20 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+
 .card__theme {
     width: auto;
     height: 20px;
     padding: 5px 14px;
     border-radius: 18px;
 }
+
 .card__theme p {
     font-size: 10px;
     font-weight: 600;
     line-height: 10px;
 }
+
 .card__btn {
     width: 24px;
     height: 24px;
@@ -876,12 +969,14 @@ body {
     justify-content: space-around;
     padding: 2px;
 }
+
 .card__btn div {
     width: 4px;
     height: 4px;
     border-radius: 50%;
     background-color: #94A6BE;
 }
+
 .card__title {
     font-size: 14px;
     font-weight: 500;
@@ -889,6 +984,7 @@ body {
     color: #000000;
     margin-bottom: 10px;
 }
+
 .card__content {
     height: 64px;
     display: flex;
@@ -896,6 +992,7 @@ body {
     align-items: flex-start;
     justify-content: space-between;
 }
+
 .card__date {
     display: flex;
     align-items: center;
@@ -905,6 +1002,7 @@ body {
 .card__date svg {
     width: 13px;
 }
+
 .card__date p {
     margin-left: 6px;
     font-size: 10px;
@@ -914,54 +1012,66 @@ body {
 }
 
 
-    .cards {
-        width: 100%;
-        display: flex;
-        overflow-y: auto;
-    }
-    .cards__card {
-        width: 220px;
-        height: 130px;
-        background-color: #FFFFFF;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: stretch;
-        padding: 15px 13px 19px;
-    }
+.cards {
+    width: 100%;
+    display: flex;
+    overflow-y: auto;
+}
+
+.cards__card {
+    width: 220px;
+    height: 130px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: stretch;
+    padding: 15px 13px 19px;
+}
 
 @media screen and (max-width: 660px) {
     .pop-new-card {
         top: 70px;
     }
+
     .pop-new-card__container {
         padding: 0;
         justify-content: flex-start;
     }
+
     .pop-new-card__block {
         border-radius: 0;
     }
+
     .pop-new-card__wrap {
         display: block;
     }
+
     .calendar {
         max-width: 340px;
         width: 100%;
     }
-    .calendar__ttl, .calendar__nav, .calendar__period {
+
+    .calendar__ttl,
+    .calendar__nav,
+    .calendar__period {
         padding: 0;
     }
+
     .calendar .date-create {
         display: none;
         margin-bottom: 7px;
     }
+
     .calendar__p {
         font-size: 14px;
     }
+
     .calendar__day-name {
         font-size: 14px;
     }
+
     .calendar__cells {
         width: 344px;
         height: auto;
@@ -969,30 +1079,37 @@ body {
         flex-wrap: wrap;
         justify-content: space-around;
     }
+
     .calendar__cell {
         width: 42px;
         height: 42px;
         font-size: 14px;
     }
+
     .pop-browse {
         top: 70px;
     }
+
     .pop-browse__container {
         padding: 0;
         justify-content: flex-start;
     }
+
     .pop-browse__block {
         border-radius: 0;
     }
+
     .pop-browse__wrap {
         display: block;
     }
 }
+
 @media screen and (max-width: 495px) {
     .container {
         width: 100%;
         padding: 0 16px;
     }
+
     .header__btn-main-new {
         z-index: 3;
         position: fixed;
@@ -1004,92 +1121,113 @@ body {
         border-radius: 4px;
         margin-right: 0;
     }
+
     .pop-new-card__container {
         padding: 0;
         justify-content: flex-start;
     }
+
     .pop-new-card__block {
         padding: 20px 16px 32px;
     }
+
     .pop-new-card__form {
         max-width: 100%;
         width: 100%;
         display: block;
     }
+
     .pop-new-card__calendar {
         width: 100%;
     }
+
     .form-new__area {
         max-width: 100%;
         height: 34px;
     }
+
     .form-new__create {
         width: 100%;
         height: 40px;
     }
+
     .pop-browse__block {
         padding: 20px 16px 32px;
     }
+
     .pop-browse__content .theme-down {
         display: block;
         margin-bottom: 20px;
     }
+
     .pop-browse__content .theme-top {
         display: none;
     }
+
     .pop-browse__form {
         max-width: 100%;
     }
+
     .pop-browse__calendar {
         width: 100%;
     }
-    .pop-browse__btn-browse button, .pop-browse__btn-edit button {
+
+    .pop-browse__btn-browse button,
+    .pop-browse__btn-edit button {
         width: 100%;
         height: 40px;
     }
-    .pop-browse__btn-browse .btn-group, .pop-browse__btn-edit .btn-group {
+
+    .pop-browse__btn-browse .btn-group,
+    .pop-browse__btn-edit .btn-group {
         width: 100%;
     }
-    .pop-browse__btn-browse .btn-group button, .pop-browse__btn-edit .btn-group button {
+
+    .pop-browse__btn-browse .btn-group button,
+    .pop-browse__btn-edit .btn-group button {
         margin-right: 0px;
     }
+
     .form-browse__area {
         max-width: 100%;
     }
+
     .form-browse__area {
         height: 37px;
     }
 }
+
 @media only screen and (max-width: 375px) {
     .pop-exit__block {
         padding: 50px 20px;
     }
+
     .pop-exit__exit-yes {
         width: 100%;
         height: 40px;
         margin-right: 0;
         margin-bottom: 10px;
     }
+
     .pop-exit__exit-no {
         width: 100%;
         height: 40px;
     }
+
     .pop-exit__form-group {
         display: block;
     }
 }
 
-/* Исправление отступов и высоты карточек */
 .cards__item {
     padding: 0px !important;
-    margin-bottom: 14px !important; /* Делаем красивый отступ между карточками */
+    margin-bottom: 14px !important;
     display: block;
 }
 
 .cards__card {
     width: 220px !important;
-    height: auto !important; /* Убираем жесткую высоту 130px */
+    height: auto !important;
     min-height: 130px;
     padding: 15px 13px 19px !important;
 }
-
