@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createTask } from '../../services/tasks';
+import { TaskContext } from '../../contexts/TaskContext';
 
-export default function PopNewCard({ onTaskCreated }) {
+export default function PopNewCard() {
   const navigate = useNavigate();
+  const { fetchTasks } = useContext(TaskContext);
   const [error, setError] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -32,7 +34,7 @@ export default function PopNewCard({ onTaskCreated }) {
       };
 
       await createTask(taskData); 
-      if (onTaskCreated) onTaskCreated(); 
+      fetchTasks(); 
       handleClose();
     } catch (err) {
       setError(err.message || 'API error');

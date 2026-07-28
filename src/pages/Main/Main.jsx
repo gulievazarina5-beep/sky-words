@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import * as S from './Main.styled';
 import Column from '../../components/Column/Column'; 
 import Header from '../../components/Header/Header'; 
 import { Outlet } from 'react-router-dom'; 
+import { TaskContext } from '../../contexts/TaskContext';
 
-export default function Main({ cards }) {
-  const [isLoading, setIsLoading] = useState(true);
+export default function Main() {
+  const { cards, isLoading, fetchTasks } = useContext(TaskContext);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+   useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
 
   const statusList = [
     "Без статуса",

@@ -8,17 +8,15 @@ import PopNewCard from './components/PopNewCard/PopNewCard';
 import PopBrowse from './components/PopBrowse/PopBrowse';
 import { ProtectedRoute } from './ProtectedRoute/ProtectedRoute';
 
-
-
-export const AppRoutes = ({ isAuth, onLogin, onLogout, cards }) => {
+export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login onLogin={onLogin} isAuth={isAuth} />} />
-      <Route path="/register" element={<Register isAuth={isAuth} />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-      <Route element={<ProtectedRoute isAuth={isAuth} />}>
-        <Route path="/" element={<Main cards={cards} />}>
-          <Route path="exit" element={<PopUser onLogout={onLogout} />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/" element={<Main />}>
+          <Route path="exit" element={<PopUser />} />
           <Route path="new-card" element={<PopNewCard />} />
           <Route path="card/:id" element={<PopBrowse />} />
         </Route>
