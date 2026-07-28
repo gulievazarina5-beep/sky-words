@@ -23,9 +23,9 @@ export const getTasks = async () => {
 
 export const createTask = async (taskData) => {
   const token = localStorage.getItem('token');
-  const headers = {
-    'Content-Type': 'application/json',
-  };
+  
+  // Убрали строку 'Content-Type': 'application/json'
+  const headers = {};
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
