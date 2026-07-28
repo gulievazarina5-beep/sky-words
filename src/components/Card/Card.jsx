@@ -36,7 +36,7 @@ export default function Card({ id, title, theme, date }) {
                 </clipPath>
               </defs>
             </svg>
-            <p>{date}</p>
+            <p>{new Date(date).toLocaleDateString('ru-RU')}</p>
           </S.CardDate>
         </S.CardContent>
       </S.CardContainer>
