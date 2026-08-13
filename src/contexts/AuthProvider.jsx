@@ -3,13 +3,22 @@ import { AuthContext } from './AuthContext';
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      const savedUser = localStorage.getItem('user');
+      if (savedUser && savedUser !== 'undefined' && savedUser !== 'null') {
+        return JSON.parse(savedUser);
+      }
+    } catch {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    }
+    return null;
   });
 
   const isAuth = !!user;
 
   const login = (userData, token) => {
+    if (!token || !userData) return;
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
@@ -22,7 +31,7 @@ export default function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuth, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuth, login, logout, onLogin: login }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../services/auth';
-import * as S from './register.styled';
+// src/pages/Register/Register.jsx
+import { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import * as S from '../Login/login.styled';
 
 export const Register = () => {
   const navigate = useNavigate();
-  
+  const { login: signIn } = useContext(AuthContext);
+
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -18,12 +20,19 @@ export const Register = () => {
     setError(null);
 
     try {
-      await registerUser({ 
-        login, 
-        name, 
-        password 
+      const response = await fetch('https://wedev-api.sky.pro/api/user', {
+        method: 'POST',
+        body: JSON.stringify({ login, name, password }),
       });
-      navigate('/login');
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Ошибка при регистрации');
+      }
+
+      const data = await response.json();
+      signIn(data.user || data, data.token);
+      navigate('/');
     } catch (err) {
       setError(err.message || 'Ошибка регистрации. Попробуйте снова.');
     } finally {
@@ -32,64 +41,60 @@ export const Register = () => {
   };
 
   return (
-    <S.ContainerSignup>
+    <S.ContainerSignin>
       <S.Modal>
         <S.ModalBlock>
           <S.ModalTitle>
             <h2>Регистрация</h2>
           </S.ModalTitle>
           <S.ModalForm onSubmit={handleRegister}>
-            
             {error && (
               <p style={{ color: 'red', marginBottom: '15px', textAlign: 'center', fontSize: '14px', fontWeight: 'bold' }}>
                 {error}
               </p>
             )}
 
-            <S.ModalInput 
-              type="text" 
-              name="first-name" 
-              id="first-name" 
-              placeholder="Имя" 
+            <S.ModalInput
+              type="text"
+              name="first-name"
+              placeholder="Имя"
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={isLoading}
               required
             />
 
-            <S.ModalInput 
-              type="text" 
-              name="login" 
-              id="loginReg" 
-              placeholder="Эл. почта" 
+            <S.ModalInput
+              type="text"
+              name="login"
+              placeholder="Эл. почта"
               value={login}
               onChange={(e) => setLogin(e.target.value)}
               disabled={isLoading}
               required
             />
 
-            <S.ModalInput 
-              type="password" 
-              name="password" 
-              id="passwordReg" 
-              placeholder="Пароль" 
+            <S.ModalInput
+              type="password"
+              name="password"
+              placeholder="Пароль"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
               required
             />
-            
-            <S.ModalBtnSignUp type="submit" disabled={isLoading}>
-              {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
-            </S.ModalBtnSignUp>
+
+            <S.ModalBtnEnter type="submit" disabled={isLoading}>
+              {isLoading ? 'Загрузка...' : 'Зарегистрироваться'}
+            </S.ModalBtnEnter>
 
             <S.ModalFormGroup>
               <p>Уже есть аккаунт?</p>
-              <S.ModalLink to="/login"> Войдите здесь </S.ModalLink>
+              <Link to="/login" style={{ textDecoration: 'none', color: '#565EEF' }}> Войдите здесь </Link>
             </S.ModalFormGroup>
           </S.ModalForm>
         </S.ModalBlock>
       </S.Modal>
-    </S.ContainerSignup>
+    </S.ContainerSignin>
   );
 };

@@ -4,6 +4,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 export const ProtectedRoute = () => {
   const { isAuth } = useContext(AuthContext);
+  const hasToken = !!localStorage.getItem('token');
 
-  return isAuth ? <Outlet /> : <Navigate to="/login" />;
+  return isAuth && hasToken ? <Outlet /> : <Navigate to="/login" replace />;
 };
