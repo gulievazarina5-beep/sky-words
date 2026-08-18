@@ -1,12 +1,15 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
 import * as S from './PopUser.styled';
 
-export default function PopUser({ onLogout }) {
+export default function PopUser() {
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
 
   const handleLogout = (e) => {
     e.preventDefault();
-    onLogout();
+    logout();
     navigate('/login');
   };
 

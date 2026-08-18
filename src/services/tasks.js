@@ -1,7 +1,5 @@
 export const getTasks = async (token) => {
-  const headers = {
-    'Content-Type': 'application/json',
-  };
+  const headers = {};
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
@@ -31,7 +29,7 @@ export const createTask = async (taskData, token) => {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const url = 'https://wedev-api.sky.pro/api/kanban';
+  const url = 'https://sky.pro';
   const response = await fetch(url, {
     method: 'POST',
     headers: headers,
