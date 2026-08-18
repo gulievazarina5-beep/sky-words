@@ -9,7 +9,7 @@ export const request = async (endpoint, options = {}) => {
   }
 
   try {
-    const response = await fetch(`https://sky.pro{endpoint}`, { ...options, headers });
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban{endpoint}`, { ...options, headers });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
