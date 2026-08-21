@@ -1,18 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import * as S from './Main.styled';
 import Column from '../../components/Column/Column'; 
 import Header from '../../components/Header/Header'; 
 import { Outlet } from 'react-router-dom'; 
+import { TaskContext } from '../../contexts/TaskContext';
+import { AuthContext } from '../../contexts/AuthContext';
 
-export default function Main({ cards }) {
-  const [isLoading, setIsLoading] = useState(true);
+export default function Main() {
+  const { cards, isLoading, fetchTasks } = useContext(TaskContext);
+  const { isAuth } = useContext(AuthContext);
+  const didFetch = useRef(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (isAuth && !didFetch.current) {
+      const currentToken = localStorage.getItem('token');
+      if (currentToken) {
+        didFetch.current = true;
+        fetchTasks(currentToken);
+      }
+    }
+  }, [fetchTasks, isAuth]);
 
   const statusList = [
     "Без статуса",
@@ -33,7 +40,9 @@ export default function Main({ cards }) {
           ) : (
             <S.MainBlock>
               {statusList.map((status) => {
-                const filteredCards = cards.filter((card) => card.status === status);
+                const filteredCards = Array.isArray(cards) 
+                  ? cards.filter((card) => card.status === status) 
+                  : [];
                 return (
                   <Column 
                     key={status} 

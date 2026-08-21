@@ -1,8 +1,26 @@
 import { useParams, Link } from 'react-router-dom'; 
+import { useContext } from 'react';
 import Calendar from '../Calendar/Calendar'; 
+import { TaskContext } from '../../contexts/TaskContext';
 
 export default function PopBrowse() {
   const { id } = useParams(); 
+  const { cards } = useContext(TaskContext);
+
+  const card = cards.find((c) => c._id === id);
+
+  if (!card) {
+    return (
+      <div className="pop-browse">
+        <div className="pop-browse__container">
+          <div className="pop-browse__block">
+            <p>Задача не найдена</p>
+            <Link to="/">Закрыть</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pop-browse" id="popBrowse">
@@ -10,12 +28,12 @@ export default function PopBrowse() {
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">Просмотр задачи</h3>
+              <h3 className="pop-browse__ttl">{card.title}</h3>
               <p style={{ color: '#94A6BE', fontSize: '14px', margin: '5px 0' }}>
                 ID карточки: <strong>{id}</strong>
               </p>
               <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">Web Design</p>
+                <p className="_orange">{card.topic}</p>
               </div>
             </div>
             
@@ -29,7 +47,7 @@ export default function PopBrowse() {
                     id="textArea01" 
                     readOnly 
                     placeholder="Описание задачи..."
-                    defaultValue="Разработать дизайн главной страницы для нового проекта..."
+                    value={card.description || ''}
                   />
                 </div>
               </div>
@@ -37,19 +55,19 @@ export default function PopBrowse() {
               <div className="pop-browse__status status">
                 <p className="status__ttl subttl">Статус</p>
                 <div className="status__themes">
-                  <div className="status__theme _hide">
+                  <div className={`status__theme ${card.status === "Без статуса" ? "_active-category" : "_hide"}`}>
                     <p>Без статуса</p>
                   </div>
-                  <div className="status__theme _gray">
-                    <p className="_gray">Нужно сделать</p>
+                  <div className={`status__theme ${card.status === "Нужно сделать" ? "_active-category" : "_gray"}`}>
+                    <p>Нужно сделать</p>
                   </div>
-                  <div className="status__theme _orange _active-category">
-                    <p className="_orange">В работе</p>
+                  <div className={`status__theme ${card.status === "В работе" ? "_active-category" : "_hide"}`}>
+                    <p>В работе</p>
                   </div>
-                  <div className="status__theme _hide">
+                  <div className={`status__theme ${card.status === "Тестирование" ? "_active-category" : "_hide"}`}>
                     <p>Тестирование</p>
                   </div>
-                  <div className="status__theme _hide">
+                  <div className={`status__theme ${card.status === "Готово" ? "_active-category" : "_hide"}`}>
                     <p>Готово</p>
                   </div>
                 </div>
@@ -57,7 +75,7 @@ export default function PopBrowse() {
 
               <div className="pop-browse__wrap-calendar">
                 <p className="subttl">Срок выполнения:</p>
-                <Calendar /> 
+                <Calendar selected={card.date ? new Date(card.date) : null} /> 
               </div>
             </div>
 

@@ -1,12 +1,11 @@
-export const getTasks = async () => {
-  const token = localStorage.getItem('token');
+export const getTasks = async (token) => {
   const headers = {};
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const url = 'https://' + 'wedev-api.sky.pro/api/kanban';
+  const url = 'https://wedev-api.sky.pro/api/kanban';
   const response = await fetch(url, {
     method: 'GET',
     headers: headers,
@@ -18,20 +17,17 @@ export const getTasks = async () => {
   }
 
   const data = await response.json();
-  return data.tasks || [];
+  return data.tasks || data || [];
 };
 
-export const createTask = async (taskData) => {
-  const token = localStorage.getItem('token');
-  
-  // Убрали строку 'Content-Type': 'application/json'
+export const createTask = async (taskData, token) => {
   const headers = {};
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const url = 'https://' + 'wedev-api.sky.pro/api/kanban';
+  const url = 'https://wedev-api.sky.pro/api/kanban';
   const response = await fetch(url, {
     method: 'POST',
     headers: headers,

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 import * as S from "./Header.styled"; 
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const toggleMenu = (event) => {
     event.preventDefault();
@@ -39,12 +41,12 @@ export default function Header() {
             </S.BtnMainNew>
             
             <S.HeaderUser href="#" onClick={toggleMenu}>
-              Ivan Ivanov
+              {user?.name || user?.login || "Пользователь"}
             </S.HeaderUser>
 
             <S.PopUserSet $isOpen={isOpen}>
-              <p className="name">Ivan Ivanov</p>
-              <p className="mail">ivan.ivanov@gmail.com</p>
+              <p className="name">{user?.name || user?.login || "Пользователь"}</p>
+              <p className="mail">{user?.email || user?.login || ""}</p>
               
               <div className="theme">
                 <p>Темная тема</p>

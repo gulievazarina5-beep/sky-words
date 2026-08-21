@@ -1,30 +1,52 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../services/auth';
+import { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
 import * as S from './login.styled';
 
-export const Login = ({ onLogin }) => {
+export const Login = () => {
   const navigate = useNavigate();
+  const context = useContext(AuthContext);
+  const signIn = context?.login || context?.onLogin;
   
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
     setIsLoading(true);
     setError(null);
 
     try {
-      await loginUser({ 
-        login, 
-        password 
+      const response = await fetch('https://wedev-api.sky.pro/api/user/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          login: email,
+          password: password
+        })
       });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(data?.error || 'Неверный логин или пароль');
+      }
       
-      onLogin();
-      navigate('/');
+      if (signIn) {
+        const userToSave = data?.user ? data.user : data;
+        const tokenToSave = data?.token || (data?.user?.token);
+
+        signIn(userToSave, tokenToSave);
+        navigate('/');
+      } else {
+        throw new Error('Критическая ошибка: метод авторизации отсутствует в контексте');
+      }
+      
     } catch (err) {
+      console.error("Ошибка при входе:", err);
       setError(err.message || 'Неверный логин или пароль. Попробуйте снова.');
     } finally {
       setIsLoading(false);
@@ -41,7 +63,7 @@ export const Login = ({ onLogin }) => {
           <S.ModalForm onSubmit={handleLogin}>
             
             {error && (
-              <p style={{ color: 'red', marginBottom: '15px', textAlign: 'center', fontSize: '14px', fontWeight: 'bold' }}>
+              <p style={{ color: 'red', margin: '0 0 15px 0', textAlign: 'center', fontSize: '14px', fontWeight: 'bold' }}>
                 {error}
               </p>
             )}
@@ -51,8 +73,8 @@ export const Login = ({ onLogin }) => {
               name="login" 
               id="formlogin" 
               placeholder="Эл. почта" 
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
               required
             />
@@ -74,7 +96,7 @@ export const Login = ({ onLogin }) => {
 
             <S.ModalFormGroup>
               <p>Нужно зарегистрироваться?</p>
-              <S.ModalLink to="/register"> Регистрируйтесь здесь </S.ModalLink>
+              <Link to="/register" style={{ textDecoration: 'none', color: '#565EEF' }}> Регистрируйтесь здесь </Link>
             </S.ModalFormGroup>
           </S.ModalForm>
         </S.ModalBlock>
@@ -82,3 +104,5 @@ export const Login = ({ onLogin }) => {
     </S.ContainerSignin>
   );
 };
+
+export default Login;
