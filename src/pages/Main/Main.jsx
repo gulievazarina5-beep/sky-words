@@ -36,22 +36,31 @@ export default function Main() {
       <S.MainContent>
         <S.MainContainer>
           {isLoading ? (
-            <S.LoadingText>Данные загружаются...</S.LoadingText>
+            <S.LoaderWrapper>
+              <S.Spinner />
+              <p>Данные загружаются...</p>
+            </S.LoaderWrapper>
           ) : (
-            <S.MainBlock>
-              {statusList.map((status) => {
-                const filteredCards = Array.isArray(cards) 
-                  ? cards.filter((card) => card.status === status) 
-                  : [];
-                return (
-                  <Column 
-                    key={status} 
-                    title={status} 
-                    cards={filteredCards} 
-                  />
-                );
-              })}
-            </S.MainBlock>
+            <>
+              {!cards || cards.length === 0 ? (
+                <S.NoTasksText>Новых задач нет</S.NoTasksText>
+              ) : (
+                <S.MainBlock>
+                  {statusList.map((status) => {
+                    const filteredCards = Array.isArray(cards) 
+                      ? cards.filter((card) => card.status === status) 
+                      : [];
+                    return (
+                      <Column 
+                        key={status} 
+                        title={status} 
+                        cards={filteredCards} 
+                      />
+                    );
+                  })}
+                </S.MainBlock>
+              )}
+            </>
           )}
         </S.MainContainer>
       </S.MainContent>

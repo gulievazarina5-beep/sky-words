@@ -1,6 +1,11 @@
 import { useState, useCallback } from 'react';
 import { TaskContext } from './TaskContext';
-import { getTasks as apiGetTasks, createTask as apiCreateTask } from '../services/tasks';
+import { 
+  getTasks as apiGetTasks, 
+  createTask as apiCreateTask,
+  editTask as apiEditTask,
+  deleteTask as apiDeleteTask
+} from '../services/tasks';
 
 export default function TaskProvider({ children }) {
   const [cards, setCards] = useState([]);
@@ -20,7 +25,7 @@ export default function TaskProvider({ children }) {
         setCards([]);
       }
     } catch (err) {
-      setError(err.message || 'Error fetching tasks');
+      setError(err.message || 'Ошибка при загрузке задач');
       setCards([]);
     } finally {
       setIsLoading(false);
@@ -32,22 +37,57 @@ export default function TaskProvider({ children }) {
     setError(null);
     try {
       const data = await apiCreateTask(taskData, token);
-      
       if (data && data.tasks) {
         setCards(data.tasks);
       } else {
         await fetchTasks(token);
       }
     } catch (err) {
-      setError(err.message || 'Error creating task');
+      setError(err.message || 'Ошибка при создании задачи');
       throw err; 
     } finally {
       setIsLoading(false);
     }
   }, [fetchTasks]);
 
+  const editTask = useCallback(async (id, taskData, token) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await apiEditTask(id, taskData, token);
+      if (data && data.tasks) {
+        setCards(data.tasks);
+      } else {
+        await fetchTasks(token);
+      }
+    } catch (err) {
+      setError(err.message || 'Ошибка при редактировании задачи');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [fetchTasks]);
+
+  const deleteTask = useCallback(async (id, token) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await apiDeleteTask(id, token);
+      if (data && data.tasks) {
+        setCards(data.tasks);
+      } else {
+        await fetchTasks(token);
+      }
+    } catch (err) {
+      setError(err.message || 'Ошибка при удалении задачи');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [fetchTasks]);
+
   return (
-    <TaskContext.Provider value={{ cards, isLoading, error, fetchTasks, addTask }}>
+    <TaskContext.Provider value={{ cards, isLoading, error, fetchTasks, addTask, editTask, deleteTask }}>
       {children}
     </TaskContext.Provider>
   );

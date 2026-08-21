@@ -1,4 +1,3 @@
-// src/pages/Register/Register.jsx
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -16,13 +15,27 @@ export const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
+    if (!name.trim() || !login.trim() || !password.trim()) {
+      setError('Заполните все поля ввода');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
     try {
       const response = await fetch('https://wedev-api.sky.pro/api/user', {
         method: 'POST',
-        body: JSON.stringify({ login, name, password }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          login: login.trim(), 
+          name: name.trim(), 
+          password: password.trim() 
+        }),
       });
 
       if (!response.ok) {
