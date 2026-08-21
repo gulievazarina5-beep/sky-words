@@ -13,6 +13,7 @@ export default function PopNewCard() {
   const [description, setDescription] = useState('');
   const [theme, setTheme] = useState('');
   const [date, setDate] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); 
 
   const handleClose = (e) => {
     if (e) e.preventDefault();
@@ -21,28 +22,39 @@ export default function PopNewCard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
 
-    if (!title.trim() || !theme) {
-      setError('Form validation error');
+    if (!title.trim()) {
+      setError('Введите название задачи');
+      return;
+    }
+    if (!description.trim()) {
+      setError('Введите описание задачи');
+      return;
+    }
+    if (!theme) {
+      setError('Выберите категорию задачи');
       return;
     }
 
     try {
+      setIsSubmitting(true);
       const taskData = {
-        title: title,
+        title: title.trim(),
         topic: theme,
-        description: description,
+        description: description.trim(),
         date: date ? new Date(date).toISOString() : new Date().toISOString()
       };
 
-      const token = user?.token; 
+      const token = user?.token || localStorage.getItem('token'); 
 
       await addTask(taskData, token); 
-      
-      fetchTasks(token); 
+      await fetchTasks(token); 
       handleClose();
     } catch (err) {
-      setError(err.message || 'API error');
+      setError(err.message || 'Не удалось сохранить задачу. Попробуйте позже.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -67,6 +79,7 @@ export default function PopNewCard() {
                     placeholder="Введите название..."
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    disabled={isSubmitting}
                     autoFocus
                   />
                 </div>
@@ -79,6 +92,7 @@ export default function PopNewCard() {
                     id="textArea"
                     placeholder="Введите описание..."
                     value={description}
+                    disabled={isSubmitting}
                     onChange={(e) => setDescription(e.target.value)}
                   ></textarea>
                 </div>
@@ -90,32 +104,36 @@ export default function PopNewCard() {
                     className="form-new__input"
                     style={{ marginTop: '10px', padding: '10px', borderRadius: '8px', border: '1px solid #ccc' }}
                     value={date}
+                    disabled={isSubmitting}
                     onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
 
-                {error && <p style={{ color: 'red', margin: '10px 0' }}>{error}</p>}
+                {error && <p style={{ color: '#f5222d', margin: '10px 0', fontSize: '14px', fontWeight: '500' }}>{error}</p>}
 
                 <div className="form-new__block">
                   <p className="subttl">Категория</p>
                   <div style={{ display: 'flex', gap: '10px', marginTop: '10px', marginBottom: '20px' }}>
                     <button
                       type="button"
-                      style={{ padding: '8px 16px', borderRadius: '4px', border: theme === 'Web Design' ? '2px solid #000' : '1px solid #ccc', background: '#ffe4c4', cursor: 'pointer' }}
+                      disabled={isSubmitting}
+                      style={{ padding: '8px 16px', borderRadius: '4px', border: theme === 'Web Design' ? '2px solid #565EEF' : '1px solid #ccc', background: '#ffe4c4', cursor: 'pointer', opacity: isSubmitting ? 0.7 : 1 }}
                       onClick={() => setTheme('Web Design')}
                     >
                       Web Design
                     </button>
                     <button
                       type="button"
-                      style={{ padding: '8px 16px', borderRadius: '4px', border: theme === 'Research' ? '2px solid #000' : '1px solid #ccc', background: '#b0e0e6', cursor: 'pointer' }}
+                      disabled={isSubmitting}
+                      style={{ padding: '8px 16px', borderRadius: '4px', border: theme === 'Research' ? '2px solid #565EEF' : '1px solid #ccc', background: '#b0e0e6', cursor: 'pointer', opacity: isSubmitting ? 0.7 : 1 }}
                       onClick={() => setTheme('Research')}
                     >
                       Research
                     </button>
                     <button
                       type="button"
-                      style={{ padding: '8px 16px', borderRadius: '4px', border: theme === 'Copywriting' ? '2px solid #000' : '1px solid #ccc', background: '#e6e6fa', cursor: 'pointer' }}
+                      disabled={isSubmitting}
+                      style={{ padding: '8px 16px', borderRadius: '4px', border: theme === 'Copywriting' ? '2px solid #565EEF' : '1px solid #ccc', background: '#e6e6fa', cursor: 'pointer', opacity: isSubmitting ? 0.7 : 1 }}
                       onClick={() => setTheme('Copywriting')}
                     >
                       Copywriting
@@ -123,8 +141,22 @@ export default function PopNewCard() {
                   </div>
                 </div>
 
-                <button type="submit" className="pop-new-card__creator" style={{ width: '100%', padding: '12px', background: '#565EEF', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-                  Создать задачу
+                <button 
+                  type="submit" 
+                  className="pop-new-card__creator" 
+                  disabled={isSubmitting}
+                  style={{ 
+                    width: '100%', 
+                    padding: '12px', 
+                    background: isSubmitting ? '#94A6BE' : '#565EEF', 
+                    color: '#fff', 
+                    border: 'none', 
+                    borderRadius: '4px', 
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    transition: 'background-color 0.2s'
+                  }}
+                >
+                  {isSubmitting ? 'Создание задачи...' : 'Создать задачу'}
                 </button>
               </form>
             </div>

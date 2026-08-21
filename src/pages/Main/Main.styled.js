@@ -33,3 +33,12 @@ export const LoadingText = styled.div`
   font-size: 24px;
   font-weight: bold;
 `;
+
+  export const NoTasksText = styled.div`
+  text-align: center;
+  padding: 100px 0;
+  font-size: 20px;
+  color: #94A6BE;
+  font-weight: 500;
+  width: 100%;
+`;

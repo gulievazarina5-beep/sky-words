@@ -55,19 +55,19 @@ export default function PopBrowse() {
               <div className="pop-browse__status status">
                 <p className="status__ttl subttl">Статус</p>
                 <div className="status__themes">
-                  <div className={`status__theme ${card.status === "Без статуса" ? "_active-category" : "_hide"}`}>
+                  <div className={`status__theme ${card.status === "Без статуса" ? "_active-category" : "_gray"}`}>
                     <p>Без статуса</p>
                   </div>
                   <div className={`status__theme ${card.status === "Нужно сделать" ? "_active-category" : "_gray"}`}>
                     <p>Нужно сделать</p>
                   </div>
-                  <div className={`status__theme ${card.status === "В работе" ? "_active-category" : "_hide"}`}>
+                  <div className={`status__theme ${card.status === "В работе" ? "_active-category" : "_gray"}`}>
                     <p>В работе</p>
                   </div>
-                  <div className={`status__theme ${card.status === "Тестирование" ? "_active-category" : "_hide"}`}>
+                  <div className={`status__theme ${card.status === "Тестирование" ? "_active-category" : "_gray"}`}>
                     <p>Тестирование</p>
                   </div>
-                  <div className={`status__theme ${card.status === "Готово" ? "_active-category" : "_hide"}`}>
+                  <div className={`status__theme ${card.status === "Готово" ? "_active-category" : "_gray"}`}>
                     <p>Готово</p>
                   </div>
                 </div>
