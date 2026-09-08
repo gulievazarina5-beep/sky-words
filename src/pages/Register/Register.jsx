@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
+import { request } from '../../services/apiClient';
 import * as S from '../Login/login.styled';
 
 export const Register = () => {
@@ -26,11 +27,8 @@ export const Register = () => {
     setError(null);
 
     try {
-      const response = await fetch('https://wedev-api.sky.pro/api/user', {
+      const data = await request('/user', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({ 
           login: login.trim(), 
           name: name.trim(), 
@@ -38,12 +36,6 @@ export const Register = () => {
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Ошибка при регистрации');
-      }
-
-      const data = await response.json();
       signIn(data.user || data, data.token);
       navigate('/');
     } catch (err) {

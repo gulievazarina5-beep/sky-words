@@ -48,7 +48,12 @@ export default function Main() {
                 <S.MainBlock>
                   {statusList.map((status) => {
                     const filteredCards = Array.isArray(cards) 
-                      ? cards.filter((card) => card.status === status) 
+                      ? cards.filter((card) => {
+                          if (status === "Без статуса") {
+                            return card.status === status || !card.status;
+                          }
+                          return card.status === status;
+                        }) 
                       : [];
                     return (
                       <Column 
