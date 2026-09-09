@@ -5,6 +5,8 @@ export const HeaderContainer = styled.header`
   width: 100%;
   background-color: #ffffff;
   border-bottom: 1px solid #dcdcdc;
+  position: relative; 
+  z-index: 100;       
 `;
 
 export const Container = styled.div`

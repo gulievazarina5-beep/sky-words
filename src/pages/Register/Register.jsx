@@ -1,7 +1,7 @@
-// src/pages/Register/Register.jsx
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
+import { request } from '../../services/apiClient';
 import * as S from '../Login/login.styled';
 
 export const Register = () => {
@@ -16,21 +16,26 @@ export const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
+    if (!name.trim() || !login.trim() || !password.trim()) {
+      setError('Заполните все поля ввода');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch('https://wedev-api.sky.pro/api/user', {
+      const data = await request('/user', {
         method: 'POST',
-        body: JSON.stringify({ login, name, password }),
+        body: JSON.stringify({ 
+          login: login.trim(), 
+          name: name.trim(), 
+          password: password.trim() 
+        }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Ошибка при регистрации');
-      }
-
-      const data = await response.json();
       signIn(data.user || data, data.token);
       navigate('/');
     } catch (err) {
