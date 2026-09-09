@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { categoryThemes } from '../Theme';
 
 export const CardsItem = styled.div`
   margin-bottom: 20px !important;
@@ -33,14 +32,22 @@ export const CardTheme = styled.div`
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background-color: ${(props) => categoryThemes[props.$theme]?.bg || categoryThemes.Default.bg} !important;
+  
+  background-color: ${(props) => 
+    props.$theme === 'Web Design' ? '#FFE6CC' : 
+    props.$theme === 'Research' ? '#E5F9E0' : 
+    props.$theme === 'Copywriting' ? '#EAE6FF' : '#EFF2F6'} !important;
   
   p {
     font-size: 10px !important;
     font-weight: 600 !important;
     line-height: 1 !important;
     margin: 0 !important;
-    color: ${(props) => categoryThemes[props.$theme]?.text || categoryThemes.Default.text} !important;
+    
+    color: ${(props) => 
+      props.$theme === 'Web Design' ? '#FF8000' : 
+      props.$theme === 'Research' ? '#00B341' : 
+      props.$theme === 'Copywriting' ? '#9B30FF' : '#94A3B8'} !important;
   }
 `;
 

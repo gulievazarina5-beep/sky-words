@@ -4,6 +4,7 @@ export const request = async (endpoint, options = {}) => {
     ...options.headers,
   };
 
+
   if (headers['Content-Type']) {
     delete headers['Content-Type'];
   }
@@ -15,7 +16,11 @@ export const request = async (endpoint, options = {}) => {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(`https://wedev-api.sky.pro/api/kanban{endpoint}`, {
+  const baseUrl = endpoint.startsWith('/user') 
+    ? 'https://wedev-api.sky.pro/api' 
+    : 'https://wedev-api.sky.pro/api/kanban';
+
+  const response = await fetch(`${baseUrl}${endpoint}`, {
     ...options,
     headers,
   });

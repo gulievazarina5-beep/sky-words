@@ -13,7 +13,7 @@ export const getTasks = async (token) => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `Ошибка загрузки: ${response.status}`);
+    throw new Error(errorData.error || `Error: ${response.status}`);
   }
 
   const data = await response.json();
@@ -21,9 +21,7 @@ export const getTasks = async (token) => {
 };
 
 export const createTask = async (taskData, token) => {
-  const headers = {
-    'Content-Type': 'application/json'
-  };
+  const headers = {};
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
@@ -36,16 +34,14 @@ export const createTask = async (taskData, token) => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `Ошибка создания задачи: ${response.status}`);
+    throw new Error(errorData.error || `Error: ${response.status}`);
   }
 
   return await response.json();
 };
 
 export const editTask = async (id, taskData, token) => {
-  const headers = {
-    'Content-Type': 'application/json'
-  };
+  const headers = {};
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
@@ -58,7 +54,7 @@ export const editTask = async (id, taskData, token) => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `Ошибка обновления задачи: ${response.status}`);
+    throw new Error(errorData.error || `Error: ${response.status}`);
   }
 
   return await response.json();
@@ -77,7 +73,7 @@ export const deleteTask = async (id, token) => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `Ошибка удаления задачи: ${response.status}`);
+    throw new Error(errorData.error || `Error: ${response.status}`);
   }
 
   return await response.json();

@@ -4,6 +4,12 @@ import Calendar from '../Calendar/Calendar';
 import { TaskContext } from '../../contexts/TaskContext';
 import { AuthContext } from '../../contexts/AuthContext';
 
+const topicStyles = {
+  "Web Design": { backgroundColor: "#FFE6CC", color: "#FF8000" },
+  "Research": { backgroundColor: "#E5F9E0", color: "#00B341" },
+  "Copywriting": { backgroundColor: "#EAE6FF", color: "#9B30FF" },
+};
+
 export default function PopBrowse() {
   const { id } = useParams(); 
   const navigate = useNavigate();
@@ -33,6 +39,8 @@ export default function PopBrowse() {
   }
 
   const token = user?.token || localStorage.getItem('token');
+  const currentTopic = card.topic || card.theme || 'Web Design';
+  const currentTopicStyle = topicStyles[currentTopic] || { backgroundColor: "#EFF2F6", color: "#94A3B8" };
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -47,7 +55,7 @@ export default function PopBrowse() {
       await fetchTasks(token);
       navigate('/');
     } catch (err) {
-      setError(err.message || 'Ошибка сервера при удалении задачи. Попробуйте позже.');
+      setError(err.message || 'Ошибка сервера при удалении задачи.');
     } finally {
       setIsSubmitting(false);
     }
@@ -58,7 +66,7 @@ export default function PopBrowse() {
     setError(null);
 
     if (!description.trim()) {
-      setError('Описание задачи не может быть пустым или состоять из пробелов');
+      setError('Описание задачи не может быть пустым');
       return;
     }
 
@@ -81,21 +89,21 @@ export default function PopBrowse() {
     }
   };
 
-  return (
-    <div className="pop-browse" id="popBrowse" style={{ fontFamily: 'Roboto, sans-serif' }}>
-      <div className="pop-browse__container">
-        <div className="pop-browse__block">
+    return (
+    <div className="pop-browse" id="popBrowse" style={{ fontFamily: 'Roboto, sans-serif', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.4)', padding: '20px', zIndex: 999 }}>
+      <div className="pop-browse__container" style={{ width: '100%', maxWidth: '750px' }}>
+        <div className="pop-browse__block" style={{ background: '#fff', borderRadius: '12px', padding: '40px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
           <div className="pop-browse__content">
             <div className="pop-browse__top-block" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 className="pop-browse__ttl" style={{ fontSize: '24px', fontWeight: '700', color: '#000', margin: '0' }}>{card.title}</h3>
-              <div className="categories__theme theme-top _orange _active-category" style={{ padding: '6px 14px', borderRadius: '18px', background: '#ffe4c4' }}>
-                <p className="_orange" style={{ color: '#ff9800', fontWeight: '600', margin: '0', fontSize: '14px' }}>{card.topic}</p>
+              <div style={{ padding: '6px 14px', borderRadius: '18px', backgroundColor: currentTopicStyle.backgroundColor }}>
+                <p style={{ color: currentTopicStyle.color, fontWeight: '600', margin: '0', fontSize: '14px' }}>{currentTopic}</p>
               </div>
             </div>
             
-            <div className="pop-browse__wrap" style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', marginBottom: '20px' }}>
-              <div className="pop-browse__form form-browse" style={{ flex: '1', minWidth: '280px' }}>
-                <div className="form-browse__block" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="pop-browse__wrap" style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: '24px', marginBottom: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div className="pop-browse__form form-browse" style={{ display: 'flex', flexDirection: 'column' }}>
                   <label htmlFor="textArea01" className="subttl" style={{ fontWeight: '600', marginBottom: '8px' }}>Описание задачи</label>
                   <textarea 
                     className="form-browse__area" 
@@ -105,43 +113,42 @@ export default function PopBrowse() {
                     placeholder="Описание задачи..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    style={{ height: '140px', resize: 'none', padding: '12px', borderRadius: '8px', backgroundColor: isEdit ? '#fff' : '#f4f5f7', border: isEdit ? '1px solid #565EEF' : '1px solid #ccc' }}
+                    style={{ height: '140px', resize: 'none', padding: '12px', borderRadius: '8px', backgroundColor: isEdit ? '#fff' : '#f4f5f7', border: isEdit ? '1px solid #565EEF' : '1px solid #ccc', fontSize: '14px' }}
                   />
+                </div>
+
+                <div className="pop-browse__status status" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <p className="status__ttl subttl" style={{ fontWeight: '600', margin: '0' }}>Статус</p>
+                  <div className="status__themes" style={{ display: 'flex', flexDirection: 'row', gap: '8px', flexWrap: 'wrap' }}>
+                    {["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"]
+                      .map((item) => {
+                        const isActive = isEdit ? (status === item) : (card.status === item || (!card.status && item === "Без статуса"));
+                        return (
+                          <div 
+                            key={item}
+                            onClick={() => isEdit && !isSubmitting && setStatus(item)}
+                            style={{ 
+                              padding: '8px 14px', 
+                              borderRadius: '24px', 
+                              background: isActive ? '#565EEF' : '#EFF2F6', 
+                              color: isActive ? '#fff' : '#94A3B8',
+                              fontWeight: '500',
+                              cursor: isEdit ? 'pointer' : 'default',
+                              textAlign: 'center',
+                              fontSize: '12px',
+                              transition: 'all 0.2s'
+                            }}
+                          >
+                            <p style={{ margin: '0' }}>{item}</p>
+                          </div>
+                        );
+                      })}
+                  </div>
                 </div>
               </div>
               
-              <div className="pop-browse__status status" style={{ flex: '1', minWidth: '280px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <p className="status__ttl subttl" style={{ fontWeight: '600', margin: '0' }}>Статус</p>
-                <div className="status__themes" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"]
-                    .filter((item) => isEdit || card.status === item || (!card.status && item === "Без статуса"))
-                    .map((item) => {
-                      const isActive = isEdit ? (status === item) : (card.status === item || (!card.status && item === "Без статуса"));
-                      return (
-                        <div 
-                          key={item}
-                          className={`status__theme ${isActive ? "_active-category" : "_gray"}`}
-                          onClick={() => isEdit && !isSubmitting && setStatus(item)}
-                          style={{ 
-                            padding: '10px 14px', 
-                            borderRadius: '8px', 
-                            background: isActive ? '#94A6BE' : '#eaeaea', 
-                            color: isActive ? '#fff' : '#666',
-                            fontWeight: isActive ? '600' : '400',
-                            cursor: isEdit ? 'pointer' : 'default',
-                            textAlign: 'center',
-                            transition: 'all 0.2s'
-                          }}
-                        >
-                          <p style={{ margin: '0', fontSize: '14px' }}>{item}</p>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-
-              <div className="pop-browse__wrap-calendar" style={{ flex: '1', minWidth: '280px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <p className="subttl" style={{ fontWeight: '600', margin: '0' }}>Срок выполнения:</p>
+              <div className="pop-browse__wrap-calendar" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <p className="subttl" style={{ fontWeight: '600', margin: '0' }}>Даты</p>
                 <Calendar selected={card.date ? new Date(card.date) : null} /> 
               </div>
             </div>
@@ -152,7 +159,7 @@ export default function PopBrowse() {
               </p>
             )}
 
-                        {!isEdit ? (
+            {!isEdit ? (
               <div className="pop-browse__btn-browse" style={{ display: 'flex', justifyContent: 'space-between', marginTop: '24px', flexWrap: 'wrap', gap: '12px' }}>
                 <div className="btn-group" style={{ display: 'flex', gap: '8px' }}>
                   <button 
@@ -213,4 +220,3 @@ export default function PopBrowse() {
     </div>
   );
 }
-
