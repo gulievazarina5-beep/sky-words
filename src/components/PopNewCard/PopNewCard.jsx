@@ -26,15 +26,15 @@ export default function PopNewCard() {
     setError(null);
 
     if (!title.trim()) {
-      setError('Введите название задачи');
+      setError('Task title cannot be empty');
       return;
     }
     if (!description.trim()) {
-      setError('Введите описание задачи');
+      setError('Task description cannot be empty');
       return;
     }
     if (!theme) {
-      setError('Выберите категорию задачи');
+      setError('Please select a category');
       return;
     }
 
@@ -53,77 +53,82 @@ export default function PopNewCard() {
       await fetchTasks(token); 
       handleClose();
     } catch (err) {
-      setError(err.message || 'Не удалось сохранить задачу.');
+      setError(err.message || 'Failed to save the task.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="pop-new-card" id="popNewCard" style={{ display: 'block', fontFamily: 'Roboto, sans-serif' }}>
-      <div className="pop-new-card__container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: 'rgba(0,0,0,0.4)', padding: '20px' }}>
-        <div className="pop-new-card__block" style={{ background: '#fff', borderRadius: '12px', padding: '40px', width: '100%', maxWidth: '630px', position: 'relative', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
+    <div className="pop-new-card" id="popNewCard">
+      <div className="pop-new-card__container">
+        <div className="pop-new-card__block">
           <div className="pop-new-card__content">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 className="pop-new-card__ttl" style={{ margin: '0', fontSize: '20px', fontWeight: '700' }}>Создание задачи</h3>
-              <button onClick={handleClose} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '20px', color: '#94A6BE' }}>✖</button>
+            
+            <div className="pop-new-card__header">
+              <h3 className="pop-new-card__ttl">Create Task</h3>
+              <button type="button" onClick={handleClose} className="pop-new-card__close-btn">✖</button>
             </div>
             
             <div className="pop-new-card__wrap">
               <form id="formNewCard" onSubmit={handleSubmit}>
                 
-                <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                <div className="pop-new-card__columns">
                   
-                  {/* LEFT COLUMN: Title, Description, Categories */}
-                  <div style={{ flex: '1', minWidth: '280px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <label htmlFor="formTitle" style={{ fontWeight: '600', fontSize: '14px', marginBottom: '8px' }}>Название задачи</label>
+                  <div className="pop-new-card__column-left">
+                    <div className="pop-new-card__form-group">
+                      <label htmlFor="formTitle" className="pop-new-card__label">Task Title</label>
                       <input
                         type="text"
-                        placeholder="Введите название..."
+                        id="formTitle"
+                        placeholder="Enter title..."
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         disabled={isSubmitting}
                         autoFocus
-                        style={{ padding: '14px', borderRadius: '8px', border: '1px solid #D4DBE5', fontSize: '14px' }}
+                        className="pop-new-card__input"
                       />
                     </div>
                     
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <label htmlFor="textArea" style={{ fontWeight: '600', fontSize: '14px', marginBottom: '8px' }}>Описание задачи</label>
+                    <div className="pop-new-card__form-group">
+                      <label htmlFor="textArea" className="pop-new-card__label">Task Description</label>
                       <textarea
-                        placeholder="Введите описание..."
+                        id="textArea"
+                        placeholder="Enter description..."
                         value={description}
                         disabled={isSubmitting}
                         onChange={(e) => setDescription(e.target.value)}
-                        style={{ height: '140px', resize: 'none', padding: '14px', borderRadius: '8px', border: '1px solid #D4DBE5', fontSize: '14px' }}
+                        className="pop-new-card__textarea"
                       ></textarea>
                     </div>
 
-                    <div style={{ marginTop: '10px' }}>
-                      <p style={{ fontWeight: '600', fontSize: '14px', margin: '0 0 8px 0' }}>Категория</p>
-                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <div className="pop-new-card__categories">
+                      <p className="pop-new-card__label">Category</p>
+                      <div className="pop-new-card__categories-buttons">
                         <button
                           type="button"
                           disabled={isSubmitting}
-                          style={{ padding: '8px 18px', borderRadius: '18px', border: 'none', fontWeight: '600', fontSize: '12px', background: theme === 'Web Design' ? '#FFE6CC' : '#EFF2F6', color: theme === 'Web Design' ? '#FF8000' : '#94A3B8', cursor: 'pointer' }}
+                          style={{ background: theme === 'Web Design' ? '#FFE6CC' : '#EFF2F6', color: theme === 'Web Design' ? '#FF8000' : '#94A3B8' }}
                           onClick={() => setTheme('Web Design')}
+                          className="pop-new-card__category-btn"
                         >
                           Web Design
                         </button>
                         <button
                           type="button"
                           disabled={isSubmitting}
-                          style={{ padding: '8px 18px', borderRadius: '18px', border: 'none', fontWeight: '600', fontSize: '12px', background: theme === 'Research' ? '#E5F9E0' : '#EFF2F6', color: theme === 'Research' ? '#00B341' : '#94A3B8', cursor: 'pointer' }}
+                          style={{ background: theme === 'Research' ? '#E5F9E0' : '#EFF2F6', color: theme === 'Research' ? '#00B341' : '#94A3B8' }}
                           onClick={() => setTheme('Research')}
+                          className="pop-new-card__category-btn"
                         >
                           Research
                         </button>
                         <button
                           type="button"
                           disabled={isSubmitting}
-                          style={{ padding: '8px 18px', borderRadius: '18px', border: 'none', fontWeight: '600', fontSize: '12px', background: theme === 'Copywriting' ? '#EAE6FF' : '#EFF2F6', color: theme === 'Copywriting' ? '#9B30FF' : '#94A3B8', cursor: 'pointer' }}
+                          style={{ background: theme === 'Copywriting' ? '#EAE6FF' : '#EFF2F6', color: theme === 'Copywriting' ? '#9B30FF' : '#94A3B8' }}
                           onClick={() => setTheme('Copywriting')}
+                          className="pop-new-card__category-btn"
                         >
                           Copywriting
                         </button>
@@ -131,33 +136,21 @@ export default function PopNewCard() {
                     </div>
                   </div>
 
-                  {/* RIGHT COLUMN: Calendar component */}
-                  <div style={{ flex: '0 0 280px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <p style={{ fontWeight: '600', fontSize: '14px', margin: '0' }}>Даты</p>
+                  <div className="pop-new-card__column-right">
                     <Calendar selected={selectedDate} onChange={setSelectedDate} />
                   </div>
 
                 </div>
 
-                {error && <p style={{ color: '#f5222d', margin: '15px 0 0 0', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}>{error}</p>}
+                {error && <p className="pop-new-card__error">{error}</p>}
 
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  style={{ 
-                    width: '100%', 
-                    padding: '12px', 
-                    marginTop: '24px',
-                    background: isSubmitting ? '#94A6BE' : '#565EEF', 
-                    color: '#fff', 
-                    border: 'none', 
-                    borderRadius: '4px', 
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                    fontWeight: '600',
-                    fontSize: '14px'
-                  }}
+                  className="pop-new-card__submit-btn"
+                  style={{ background: isSubmitting ? '#94A6BE' : '#565EEF' }}
                 >
-                  {isSubmitting ? 'Создание задачи...' : 'Создать задачу'}
+                  {isSubmitting ? 'Creating task...' : 'Create Task'}
                 </button>
               </form>
             </div>

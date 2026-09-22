@@ -1,13 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
-import Main from './pages/Main/Main';
-import { Login } from './pages/Login/Login';
-import { Register } from './pages/Register/Register';
+import Main from './pages/Main/main';
+import { Login } from './pages/login/Login';
+import { Register } from './pages/register/Register';
 import { NotFound } from './pages/NotFound/NotFound';
 import PopUser from './components/PopUser/PopUser';
 import PopNewCard from './components/PopNewCard/PopNewCard';
 import PopBrowse from './components/PopBrowse/PopBrowse';
-import { ProtectedRoute } from './ProtectedRoute/ProtectedRoute';
+import { ProtectedRoute } from './pages/ProtectedRoute/protectedRoute';
 import { AuthContext } from './contexts/AuthContext';
 
 export const AppRoutes = () => {

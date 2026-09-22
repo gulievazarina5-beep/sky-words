@@ -608,99 +608,70 @@ body {
 }
 
 .pop-browse {
-    width: 100%;
-    height: 100%;
-    min-width: 375px;
-    min-height: 100vh;
-    position: fixed; 
-    top: 0;
-    left: 0;
-    z-index: 10;     
+    width: 100vw !important;
+    height: 100vh !important;
+    position: fixed !important; 
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 999 !important;     
+    overflow-y: auto !important;
 }
 
 .pop-browse__container {
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    padding: 0 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.4);
+    width: 100% !important;
+    min-height: 100vh !important;
+    padding: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    box-sizing: border-box !important;
 }
 
 .pop-browse__block {
-    display: block;
-    margin: 0 auto;
-    background-color: #FFFFFF;
-    max-width: 630px;
-    width: 100%;
-    padding: 40px 30px 38px;
-    border-radius: 10px;
-    border: 0.7px solid #D4DBE5;
-    position: relative;
-}
-
-.pop-browse__content {
-    display: block;
-    text-align: left;
-}
-
-.pop-browse__content .categories__theme {
-    opacity: 1;
-}
-
-.pop-browse__content .theme-down {
-    display: none;
-    margin-bottom: 20px;
-}
-
-.pop-browse__content .theme-top {
-    display: block;
-}
-
-.pop-browse__top-block {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-}
-
-.pop-browse__ttl {
-    color: #000;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 24px;
+    background-color: #FFFFFF !important;
+    max-width: 630px !important;
+    width: 100% !important;
+    padding: 30px !important;
+    border-radius: 10px !important;
+    border: 0.7px solid #D4DBE5 !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    height: auto !important;
 }
 
 .pop-browse__wrap {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    display: flex !important;
+    gap: 24px !important;
+    align-items: flex-start !important;
 }
 
-.pop-browse__form {
-    max-width: 370px;
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-}
-
-.pop-browse__btn-browse,
-.pop-browse__btn-edit {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
+.form-browse__area {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 140px !important;
+    padding: 14px !important;
+    box-sizing: border-box !important;
+    resize: none !important;
 }
 
 .pop-browse__btn-browse button,
 .pop-browse__btn-edit button {
-    height: 30px;
-    margin-bottom: 10px;
-    padding: 0 14px;
+    height: auto !important;
+    padding: 10px 20px !important;
 }
+
+@media screen and (max-width: 600px) {
+    .pop-browse__wrap {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    .pop-browse__block {
+        padding: 20px !important;
+    }
+}
+
 
 .pop-browse__btn-browse .btn-group button,
 .pop-browse__btn-edit .btn-group button {
@@ -823,9 +794,33 @@ body {
     padding: 0 10px;
 }
 
+
 .header__logo img {
-    width: 85px;
+    display: none !important;
 }
+.header__logo a::after {
+    content: "skypro.kanban" !important;
+    font-weight: 800 !important;
+    font-size: 20px !important;
+    color: #565EEF !important;
+    letter-spacing: 0.5px !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+
+.pop-browse__block [style*="backgroundColor"] p,
+.pop-browse__block .categories__theme p {
+    color: #FF8000 !important;
+}
+.pop-browse__block [style*="backgroundColor"],
+.pop-browse__block .categories__theme {
+    background-color: #FFE6CC !important;
+}
+.pop-browse__block [style*="backgroundColor"] p::after,
+.pop-browse__block .categories__theme p::after {
+    content: "Web Design" !important;
+}
+
 
 .header__nav {
     max-width: 290px;
@@ -1231,3 +1226,4 @@ body {
     min-height: 130px;
     padding: 15px 13px 19px !important;
 }
+

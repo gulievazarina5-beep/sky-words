@@ -1,7 +1,7 @@
 import { useEffect, useContext, useRef } from 'react';
 import * as S from './Main.styled';
 import Column from '../../components/Column/Column'; 
-import Header from '../../components/Header/Header'; 
+import Header from '../../components/header/header'; 
 import { Outlet } from 'react-router-dom'; 
 import { TaskContext } from '../../contexts/TaskContext';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -22,11 +22,11 @@ export default function Main() {
   }, [fetchTasks, isAuth]);
 
   const statusList = [
-    "Без статуса",
-    "Нужно сделать",
-    "В работе",
-    "Тестирование",
-    "Готово"
+    "No status",
+    "To Do",
+    "In Progress",
+    "Testing",
+    "Done"
   ];
 
   return (
@@ -38,20 +38,25 @@ export default function Main() {
           {isLoading ? (
             <S.LoaderWrapper>
               <S.Spinner />
-              <p>Данные загружаются...</p>
+              <p>Loading data...</p>
             </S.LoaderWrapper>
           ) : (
             <>
               {!cards || cards.length === 0 ? (
-                <S.NoTasksText>Новых задач нет</S.NoTasksText>
+                <S.NoTasksText>No tasks available</S.NoTasksText>
               ) : (
                 <S.MainBlock>
                   {statusList.map((status) => {
                     const filteredCards = Array.isArray(cards) 
                       ? cards.filter((card) => {
-                          if (status === "Без статуса") {
-                            return card.status === status || !card.status;
+                          if (status === "No status") {
+                            return card.status === status || !card.status || card.status === "Без статуса";
                           }
+                          if (status === "To Do" && card.status === "Нужно сделать") return true;
+                          if (status === "In Progress" && card.status === "В работе") return true;
+                          if (status === "Testing" && card.status === "Тестирование") return true;
+                          if (status === "Done" && card.status === "Готово") return true;
+
                           return card.status === status;
                         }) 
                       : [];
