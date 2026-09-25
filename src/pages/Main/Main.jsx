@@ -1,14 +1,14 @@
 import { useEffect, useContext, useRef } from 'react';
 import * as S from './Main.styled';
 import Column from '../../components/Column/Column'; 
-import Header from '../../components/header/header'; 
+import Header from '../../components/Header/Header'; 
 import { Outlet } from 'react-router-dom'; 
 import { TaskContext } from '../../contexts/TaskContext';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Main() {
   const { cards, isLoading, fetchTasks } = useContext(TaskContext);
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, user } = useContext(AuthContext); 
   const didFetch = useRef(false);
 
   useEffect(() => {
@@ -22,40 +22,47 @@ export default function Main() {
   }, [fetchTasks, isAuth]);
 
   const statusList = [
-    "No status",
-    "To Do",
-    "In Progress",
-    "Testing",
-    "Done"
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово"
   ];
-
   return (
     <S.Wrapper>
-      <Header />
+      <Header username={user?.name || ''} />
       
       <S.MainContent>
         <S.MainContainer>
           {isLoading ? (
             <S.LoaderWrapper>
               <S.Spinner />
-              <p>Loading data...</p>
+              <p>Загрузка данных...</p>
             </S.LoaderWrapper>
           ) : (
             <>
               {!cards || cards.length === 0 ? (
-                <S.NoTasksText>No tasks available</S.NoTasksText>
+                <S.NoTasksText>Новых задач нет</S.NoTasksText>
               ) : (
                 <S.MainBlock>
                   {statusList.map((status) => {
                     const filteredCards = Array.isArray(cards) 
                       ? cards.filter((card) => {
-                          if (status === "No status") {
-                            return card.status === status || !card.status || card.status === "Без статуса";
+                          if (status === "Без статуса") {
+                            return card.status === "Без статуса" || card.status === "No status" || !card.status;
                           }
-                          if (status === "To Do" && card.status === "Нужно сделать") return true;
-                          if (status === "In Progress" && card.status === "В работе") return true;
-                          if (status === "Testing" && card.status === "Тестирование") return true;
-                          if (status === "Done" && card.status === "Готово") return true;
+                          if (status === "Нужно сделать") {
+                            return card.status === "Нужно сделать" || card.status === "To Do";
+                          }
+                          if (status === "В работе") {
+                            return card.status === "В работе" || card.status === "In Progress";
+                          }
+                          if (status === "Тестирование") {
+                            return card.status === "Тестирование" || card.status === "Testing";
+                          }
+                          if (status === "Готово") {
+                            return card.status === "Готово" || card.status === "Done";
+                          }
 
                           return card.status === status;
                         }) 
@@ -76,6 +83,15 @@ export default function Main() {
       </S.MainContent>
 
       <Outlet />
+
+      <style>{`
+        body, html, #root {
+          font-family: 'Roboto', sans-serif !important;
+        }
+        h1:empty, p:empty, div:empty {
+          display: none !important;
+        }
+      `}</style>
     </S.Wrapper>
   );
 }
