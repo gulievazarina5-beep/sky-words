@@ -1,66 +1,61 @@
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
-import * as S from "./Header.styled"; 
+import { Link } from 'react-router-dom';
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
-
-  const toggleMenu = (event) => {
-    event.preventDefault();
-    setIsOpen(!isOpen);
-  };
-
-  const handleNewCardClick = (event) => {
-    event.preventDefault();
-    navigate('/new-card');
-  };
-
+export default function Header({ username }) {
   return (
-    <S.HeaderContainer>
-      <S.Container>
-        <S.HeaderBlock>
-          
-          <S.LogoLight>
-            <Link to="/">
-              <img src="images/logo.png" alt="logo" />
-            </Link>
-          </S.LogoLight>
+    <header style={{ width: '100%', backgroundColor: '#FFFFFF', borderBottom: '1px solid #EFF2F6', fontFamily: 'Roboto, sans-serif' }}>
+      <div style={{ height: '70px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: '1260px', margin: '0 auto', padding: '0 16px', boxSizing: 'border-box' }}>
+        
+        
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Link to="/" style={{ display: 'block', textDecoration: 'none' }}>
+            <img 
+              src="/images/logo.png" 
+              alt="skypro" 
+              style={{ width: '106px', height: 'auto', display: 'block', border: 'none' }} 
+            />
+          </Link>
+        </div>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <Link to="/new" style={{ textDecoration: 'none' }}>
+            <button
+              type="button"
+              style={{ 
+                padding: '8px 20px', 
+                borderRadius: '4px', 
+                backgroundColor: '#565EEF', 
+                color: '#FFFFFF', 
+                border: 'none', 
+                fontWeight: '600', 
+                cursor: 'pointer',
+                fontFamily: 'Roboto, sans-serif',
+                fontSize: '14px'
+              }}
+            >
+              Создать задачу
+            </button>
+          </Link>
 
-          <S.LogoDark>
-            <Link to="/">
-              <img src="images/logo_dark.png" alt="logo" />
-            </Link>
-          </S.LogoDark>
+          <div style={{ fontSize: '14px', fontWeight: '500', color: '#565EEF', fontFamily: 'Roboto, sans-serif' }}>
+            {username || ''}
+          </div>
+        </nav>
 
-          <S.HeaderNav>
-            <S.BtnMainNew onClick={handleNewCardClick} id="btnMainNew">
-              Создать новую задачу
-            </S.BtnMainNew>
-            
-            <S.HeaderUser href="#" onClick={toggleMenu}>
-              {user?.name || user?.login || "Пользователь"}
-            </S.HeaderUser>
+      </div>
 
-            <S.PopUserSet $isOpen={isOpen}>
-              <p className="name">{user?.name || user?.login || "Пользователь"}</p>
-              <p className="mail">{user?.email || user?.login || ""}</p>
-              
-              <div className="theme">
-                <p>Темная тема</p>
-                <input type="checkbox" className="checkbox" name="checkbox" />
-              </div>
-              
-              <S.PopUserExitBtn to="/exit">
-                Выйти
-              </S.PopUserExitBtn>
-            </S.PopUserSet>
-
-          </S.HeaderNav>
-        </S.HeaderBlock>
-      </S.Container>
-    </S.HeaderContainer>
+      <style>{`
+        
+        .header__logo, 
+        [class*="header__logo"],
+        .header__logo a,
+        .header__logo span {
+          display: none !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+          font-size: 0 !important;
+          width: 0 !important;
+          height: 0 !important;
+        }
+      `}</style>
+    </header>
   );
 }

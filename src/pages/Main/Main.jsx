@@ -8,7 +8,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Main() {
   const { cards, isLoading, fetchTasks } = useContext(TaskContext);
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, user } = useContext(AuthContext); 
   const didFetch = useRef(false);
 
   useEffect(() => {
@@ -28,35 +28,70 @@ export default function Main() {
     "Тестирование",
     "Готово"
   ];
-
   return (
     <S.Wrapper>
-      <Header />
+      <Header username={user?.name || ''} />
       
       <S.MainContent>
         <S.MainContainer>
           {isLoading ? (
-            <S.LoadingText>Данные загружаются...</S.LoadingText>
+            <S.LoaderWrapper>
+              <S.Spinner />
+              <p>Загрузка данных...</p>
+            </S.LoaderWrapper>
           ) : (
-            <S.MainBlock>
-              {statusList.map((status) => {
-                const filteredCards = Array.isArray(cards) 
-                  ? cards.filter((card) => card.status === status) 
-                  : [];
-                return (
-                  <Column 
-                    key={status} 
-                    title={status} 
-                    cards={filteredCards} 
-                  />
-                );
-              })}
-            </S.MainBlock>
+            <>
+              {!cards || cards.length === 0 ? (
+                <S.NoTasksText>Новых задач нет</S.NoTasksText>
+              ) : (
+                <S.MainBlock>
+                  {statusList.map((status) => {
+                    const filteredCards = Array.isArray(cards) 
+                      ? cards.filter((card) => {
+                          if (status === "Без статуса") {
+                            return card.status === "Без статуса" || card.status === "No status" || !card.status;
+                          }
+                          if (status === "Нужно сделать") {
+                            return card.status === "Нужно сделать" || card.status === "To Do";
+                          }
+                          if (status === "В работе") {
+                            return card.status === "В работе" || card.status === "In Progress";
+                          }
+                          if (status === "Тестирование") {
+                            return card.status === "Тестирование" || card.status === "Testing";
+                          }
+                          if (status === "Готово") {
+                            return card.status === "Готово" || card.status === "Done";
+                          }
+
+                          return card.status === status;
+                        }) 
+                      : [];
+                    return (
+                      <Column 
+                        key={status} 
+                        title={status} 
+                        cards={filteredCards} 
+                      />
+                    );
+                  })}
+                </S.MainBlock>
+              )}
+            </>
           )}
         </S.MainContainer>
       </S.MainContent>
 
       <Outlet />
+
+      <style>{`
+        body, html, #root {
+          font-family: 'Roboto', sans-serif !important;
+        }
+        h1:empty, p:empty, div:empty {
+          display: none !important;
+        }
+      `}</style>
     </S.Wrapper>
   );
 }

@@ -7,6 +7,52 @@
     <title>Skypro Kanban</title>
     
     <link rel="stylesheet" href="https://googleapis.com">
+
+    <style>
+      .header__logo, 
+      [class*="logo"], 
+      [class*="Logo"] {
+        font-size: 0 !important;
+        color: transparent !important;
+        line-height: 0 !important;
+        text-indent: -9999px !important;
+      }
+      
+      .header__logo::before, .header__logo::after,
+      [class*="logo"]::before, [class*="logo"]::after {
+        display: none !important;
+        content: "" !important;
+      }
+
+      .header__logo a, 
+      [class*="logo"] a {
+        display: block !important;
+        width: 106px !important;
+        height: 24px !important;
+        background: url('/images/logo.png') no-repeat center !important;
+        background-size: contain !important;
+        font-size: 0 !important;
+        color: transparent !important;
+        text-indent: -9999px !important;
+      }
+
+      ._new-task-btn,
+      .header__btn,
+      [class*="btn _new-task-btn"],
+      [class*="header__btn"] {
+        font-size: 0 !important;
+      }
+      ._new-task-btn::before,
+      .header__btn::before,
+      [class*="btn _new-task-btn"]::before,
+      [class*="header__btn"]::before {
+        content: "Создать задачу" !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        color: #FFFFFF !important;
+        font-family: 'Roboto', sans-serif !important;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

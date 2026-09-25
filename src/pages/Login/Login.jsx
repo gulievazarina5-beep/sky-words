@@ -17,15 +17,22 @@ export const Login = () => {
     e.preventDefault();
     if (isLoading) return;
 
+    if (!email.trim() || !password.trim()) {
+      setError('Заполните все поля ввода');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
     try {
       const response = await fetch('https://wedev-api.sky.pro/api/user/login', {
         method: 'POST',
+        headers: {
+        },
         body: JSON.stringify({
-          login: email,
-          password: password
+          login: email.trim(),
+          password: password.trim()
         })
       });
 
@@ -46,7 +53,6 @@ export const Login = () => {
       }
       
     } catch (err) {
-      console.error("Ошибка при входе:", err);
       setError(err.message || 'Неверный логин или пароль. Попробуйте снова.');
     } finally {
       setIsLoading(false);
